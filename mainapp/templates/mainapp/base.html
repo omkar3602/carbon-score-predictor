@@ -1,1 +1,122 @@
-Mainapp Base
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;500;600900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                fontFamily: {
+                    nunito: ["Nunito", "sans-serif"],
+                },
+                colors: {
+                    primary_red: '#c50d20',
+                    dark_grey: '#333439',
+                    light_grey: '#b4b4b4',
+                }
+            }
+        }
+    }
+</script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .main_heading {
+        font-size: larger;
+        background-color: red;
+        color: blue;
+      }
+    }
+  </style>
+  <title>{% block title %}{% endblock title %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+  <nav class="bg-white shadow-lg fixed w-full z-10 pb-0">
+    <div class="px-8">
+      <div class="flex justify-between">
+        <div class="flex space-x-7">
+          <div>
+           
+            <a href="{% url 'home' %}" class="flex items-center py-4 px-2">
+              <img src="{% static 'images/logo_hori.png' %}" alt="Logo" class="h-8 mr-2">
+            </a>
+          </div>  
+          
+        </div>
+     
+      
+        <div class="hidden md:flex items-center space-x-3 ">
+
+        {% if user.is_authenticated %}
+        <h1 class="px-4 font-bold font-nunito">{{ user.fullname }}</h1>
+                
+          <form method="POST" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button class="py-2 px-2 font-medium text-white rounded bg-red-700 transition duration-300" type="submit">Log out</button>
+        </form>
+        {% else %}       
+        <a href="{% url 'login' %}"
+            class="py-2 px-2 font-medium text-gray-500 rounded hover:bg-red-700 hover:text-white transition duration-300">Log
+            In</a>
+          <a href="{% url 'signup' %}"
+            class="py-2 px-2 font-medium text-white bg-red-700 rounded hover:bg-red-400 transition duration-300">Sign
+            Up</a>
+        {% endif %}  
+      </div> 
+          
+      
+      </div>
+    </div>
+    {% if messages %}
+        
+    {% for message in messages %}
+    <div>
+      <div class="text-red-700 px-6 py-4 border-0 rounded relative bg-red-100 text-base">
+        <span class="text-xl inline-block mr-5 align-middle">
+          <i class="fas fa-bell"></i>
+        </span>
+        <span class="inline-block align-middle mr-8">
+         {{ message }}
+        </span>
+        <button class="absolute bg-transparent text-2xl font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:outline-none" onclick="closeAlert(event)">
+          <span>×</span>
+      
+        </button>
+      </div>     
+    </div>
+    {% endfor %}
+{% endif %}
+</nav>
+
+<script>
+function closeAlert(event){
+let element = event.target;
+while(element.nodeName !== "BUTTON"){
+  element = element.parentNode;
+}
+element.parentNode.parentNode.removeChild(element.parentNode);
+}
+</script>
+  {% comment %} {% if messages %}
+        <ul class="messages">
+          {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}><script>alert("{{ message }}")</script> </li>
+          {% endfor %}
+        </ul>
+  {% endif %} {% endcomment %}
+  {% block content %}{% endblock content %}
+</body>
+</html>
