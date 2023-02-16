@@ -1,15 +1,15 @@
 {% extends 'mainapp/base.html' %}
 {% load static %}
 
-{% block title %}Bridgestone India Pvt. Ltd.{% endblock title %}
+{% block title %}Carbon Score{% endblock title %}
 
 {% block content %}
 
   <div class="pl-10 pb-16 flex relative justify-between h-[600px] overflow-hidden smooth-scroll bg-gray-200">
     <div class="w-1/2">
-      <h1 class="text-left text-black text-8xl font-bold pt-[150px] drop-shadow-lg">Welcome to BSID <span class="text-red-700">Idea Submission</span>
+      <h1 class="text-left text-black text-8xl font-bold pt-[150px] drop-shadow-lg">Conserve our <span class="text-green-700">Nature</span>
       </h1>
-      <h1 class="text-left text-gray-700 font-normal text-2xl pt-2 pb-10 ">Choose the Business Unit of your choice and submit the idea.</h1>
+      <h1 class="text-left text-gray-700 font-normal text-2xl pt-2 pb-10 ">Calculate your carbon emission</h1>
      
     </div>    
     <img
@@ -24,45 +24,30 @@
     {% comment %} <img src="{% static 'images/bg-img.jpg' %}" class="object-cover w-full " alt=""> {% endcomment %}
   </div>
   <div id="BU_PROGRAMS" class="mt-16">
-    <h3 class="py-4  text-center text-red-700 text-6xl font-bold pt-16 drop-shadow-lg  hover:underline-offset-8">
-      BU PROGRAMS</h3>
-  </div>
-  <!-- <div class="flex justify-center"> -->
-
-
-  <div class="grid grid-cols-5 gap-y-10 gap-x-5 flex justify-center m-7">
-
-    {% for bussiness_unit in bussiness_units %}
-      <div class="max-w-sm rounded overflow-hidden shadow-lg">
-        {% if bussiness_unit.image %}
-          <img class="w-full" src="{{ bussiness_unit.image.url }}" alt="{{ bussiness_unit.name }}">
-        {% endif %}
-        <div class="px-6 py-4 flex flex-col justify-center items-center">
-          <div class="font-bold text-xl mb-2">{{ bussiness_unit.name }}</div>
-
+    <!-- <h3 class="py-4  text-center text-green-700 text-4xl font-bold pt-16 drop-shadow-lg  hover:underline-offset-8">
+      Calculate your Carbon score</h3> -->
+     
+      <div class="flex flex-row gap-4 p-16 mx-28">
+       
+          <img class="flex-1 h-56 md:h-auto object-cover w-1/2 py-8" src="{% static 'images/carbon_score.jpeg' %}" alt="" />
+         <div class=" flex-2">
+          <div class=" p-6 flex flex-col justify-center items-center text-center">
+            <h5 class="text-gray-900 text-3xl font-bold font-medium mb-2">CALCULATE YOUR CARBON SCORE</h5>
+           <br><br>
+            <p class="text-gray-700 text-base mb-4">
+                The carbon score is a measure of the environmental impact of a product or service in terms of its carbon footprint.
+                Carbon scores are just one aspect of a product or service's environmental impact, and may not capture other important considerations such as resource depletion, water use, or biodiversity loss. However, they can be a useful tool for consumers who are interested in reducing their carbon footprint and mitigating the impacts of climate change.
+            </p>
+            <button class="w-64 mt-6 bg-green-700 hover:bg-white text-white font-semibold hover:text-green-500 py-2 px-4 border border-green-500 hover:border-transparent rounded">
+                Check Carbon Score
+              </button>
+          </div>
         </div>
-        <!-- <div class="px-6 pt-4 pb-2">
-          <span
-            class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Consult</span>
-          <span
-            class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Strategy</span>
-          <span
-            class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Talent</span>
-          <span
-            class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Resources</span>
-
-        </div> -->
-        <div class="p-5 flex flex-col justify-center items-center">
-          <a href="{% url 'new_submission' %}?bu_id={{ bussiness_unit.id }}">
-            <button
-              class="bg-red-700 hover:bg-white text-white text-xl hover:text-red-700 font-semibold hover:font-bold py-2 px-4 border border-white hover:border-red-700 rounded">
-              Submit idea
-            </button>
-          </a>
         </div>
-      </div>
-    {% endfor %}
+    
   </div>
+
+ 
   <div id="IDEA_CHAMPIONS"  class="mt-28">
     <h3 class="text-center text-6xl mt-12 text-red-700 text-6xl font-bold py-2 drop-shadow-lg hover:underline-offset-8">
       KNOW YOUR IDEA CHAMPIONS </h3>
