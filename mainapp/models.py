@@ -14,4 +14,4 @@ class Oxygen_Emission(models.Model):
 
     oxygen_emission = models.DecimalField(max_digits=5, decimal_places=2)
     def __str__(self):
-        return self.user + "-" + self.submitted_on
+        return self.user.fullname + self.submitted_on.strftime(f" - [%d %B %Y]")
