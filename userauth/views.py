@@ -37,7 +37,7 @@ def signup(request):
                 user.save()
                 login(request, user)
                 messages.info(request, 'Account created successfully.')
-                return redirect('login')
+                return redirect('home')
         else:
             messages.error(request, 'Please make sure the passwords match.')
             return redirect('signup')
