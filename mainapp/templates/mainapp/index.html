@@ -5,15 +5,15 @@
 
 {% block content %}
 
-  <div class="pl-10 pb-16 flex relative justify-between h-[600px] overflow-hidden smooth-scroll bg-[#ddfada]" style="background-color:rgb(222, 255, 216);background:linear-gradient(0deg, rgb(222, 255, 216) 0%, white 100%);">
+  <div class="pl-10 pb-16 flex relative justify-between h-[600px] overflow-hidden smooth-scroll" style="background-color:rgb(137,189,43);background:linear-gradient(0deg, rgb(186,215,139) 0%, white 100%);">
     <div class="w-1/2">
-      <h1 class="text-left text-black text-8xl font-bold pt-[150px] drop-shadow-lg">Welcome to BSID <span class="text-red-700">Idea Submission</span>
+      <h1 class="text-left text-black text-8xl font-bold pt-[200px] drop-shadow-lg">Conserve <span class="text-green-900">Our Nature</span>
       </h1>
-      <h1 class="text-left text-gray-700 font-normal text-2xl pt-2 pb-10 ">Choose the Business Unit of your choice and submit the idea.</h1>
-     
+      <h1 class="text-left text-gray-700 font-normal text-2xl pt-2 pb-10 ">Cut Carbon and care for the planet</h1>
+      
     </div>    
     <img
-      src="{% static 'images/tyres1.png' %}"
+      src="{% static 'images/banner_img.png' %}"
       class="float-right h-3/4 absolute top-[120px] right-[-150px]"
       alt="Idea"
       />
@@ -23,14 +23,14 @@
   <div class="h">
     {% comment %} <img src="{% static 'images/bg-img.jpg' %}" class="object-cover w-full " alt=""> {% endcomment %}
   </div>
-  <div id="BU_PROGRAMS" class="mt-16">
+  {% comment %} <div id="BU_PROGRAMS" class="mt-16">
     <h3 class="py-4  text-center text-red-700 text-6xl font-bold pt-16 drop-shadow-lg  hover:underline-offset-8">
       BU PROGRAMS</h3>
-  </div>
+  </div> {% endcomment %}
   <!-- <div class="flex justify-center"> -->
 
 
-  <div class="grid grid-cols-5 gap-y-10 gap-x-5 flex justify-center m-7">
+  {% comment %} <div class="grid grid-cols-5 gap-y-10 gap-x-5 flex justify-center m-7">
 
     {% for bussiness_unit in bussiness_units %}
       <div class="max-w-sm rounded overflow-hidden shadow-lg">
@@ -62,23 +62,10 @@
         </div>
       </div>
     {% endfor %}
-  </div>
-  <div id="IDEA_CHAMPIONS"  class="mt-28">
+  </div> {% endcomment %}
+  {% comment %} <div id="IDEA_CHAMPIONS"  class="mt-28">
     <h3 class="text-center text-6xl mt-12 text-red-700 text-6xl font-bold py-2 drop-shadow-lg hover:underline-offset-8">
       KNOW YOUR IDEA CHAMPIONS </h3>
-  </div>
-
-  <div class="grid grid-cols-5 gap-y-10 gap-x-5 flex justify-center m-7">
-    {% for idea_champion in idea_champions %}
-    <div class="max-w-sm rounded overflow-hidden shadow-lg">
-      <img class="w-full" src="{% static 'images/user-avatar.png' %}" alt="Bridgestone - Finance">
-      <div class="px-6 py-4">
-        <div class="font-bold text-xl mb-2 text-center">{{ idea_champion.fullname }}</div>
-        {% comment %} <div class="text-l text-center">Finance</div> {% endcomment %}
-      </div>
-  
-    </div>  
-    {% endfor %}
-  </div>
+  </div> {% endcomment %}
   
  {% endblock content %}
