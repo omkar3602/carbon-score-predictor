@@ -51,8 +51,8 @@ def homeappliances(request):
 
         ans = predictHomeApplianceCarbonDioxide(electricity_units, age, maintenance, appliance_type)
 
-        # appliance_model = HomeAppliance_CO2_Emission(appliance_type=appliance_type, electricity_units=electricity_units, age=age, maintenance=maintenance, user=request.user, CO2_emissions=ans)
-        # appliance_model.save()
+        appliance_model = HomeAppliance_CO2_Emission(appliance_type=appliance_type, electricity_units=electricity_units, age=age, maintenance=maintenance, user=request.user, CO2_emissions=ans)
+        appliance_model.save()
 
         messages.info(request, f'Prediction= {ans}')
         return redirect('homeappliances')
@@ -70,10 +70,11 @@ def vehicles(request):
         transmission = data['transmission']
         fuel_type = data['fuel_type']
 
+        print(engine_type, cylinders, transmission, fuel_type)
         ans = predictVehicleCarbonDioxide(engine_type, cylinders, transmission, fuel_type)
 
-        # vehicle_model = Vehicle_CO2_Emission(engine_type=engine_type, cylinders=cylinders, transmission=transmission, fuel_type=fuel_type, user=request.user, CO2_emissions=ans)
-        # vehicle_model.save()
+        vehicle_model = Vehicle_CO2_Emission(engine_type=engine_type, cylinders=cylinders, transmission=transmission, fuel_type=fuel_type, user=request.user, CO2_emissions=ans)
+        vehicle_model.save()
 
         messages.info(request, f'Prediction= {ans}')
         return redirect('vehicles')
@@ -95,8 +96,8 @@ def waste(request):
 
         ans = predictWasteManagementCO2Emission(e_waste, proper_disposal, composting, recycling)
 
-        # waste_model = Waste_Management(e_waste=e_waste, proper_disposal=proper_disposal, composting=composting, recycling=recycling, user=request.user, CO2_emissions=ans)
-        # waste_model.save()
+        waste_model = Waste_Management(e_waste=e_waste, proper_disposal=proper_disposal, composting=composting, recycling=recycling, user=request.user, CO2_emissions=ans)
+        waste_model.save()
 
         messages.info(request, f'Prediction= {ans}')
 
