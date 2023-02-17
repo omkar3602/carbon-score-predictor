@@ -84,24 +84,29 @@ def oxygen_emission(request):
             ans = predictOxygenEmission(plant_species=plant_species, light_intensity=light_intensity, carbon_emission=carbon_emission, temperature=temperature)
             oxygen_model = Oxygen_Emission(plant_species=plant_species, light_intensity=light_intensity, carbon_emission=carbon_emission, temperature=temperature, user=request.user, oxygen_emission=ans)
             oxygen_model.save()
+
+            oxygen_val = Oxygen_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].oxygen_emission   
+            home_appliance_co2_val = HomeAppliance_CO2_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions   
+            vehicle_co2_val = Vehicle_CO2_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions  
+            waste_management_co2_val = Waste_Management.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions
+            user = request.user
+
+            get_carbon_score(oxygen_val, home_appliance_co2_val, vehicle_co2_val, waste_management_co2_val, user)
+            
+            context = {
+                'ans': round(ans, 3),
+                'has_ans': True,
+            }
+            return render(request, 'mainapp/oxygen_emission.html', context)
         except ValueError:
             messages.error(request, 'Please enter a valid input.')
-            
-        
 
-        oxygen_val = Oxygen_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].oxygen_emission   
-        home_appliance_co2_val = HomeAppliance_CO2_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions   
-        vehicle_co2_val = Vehicle_CO2_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions  
-        waste_management_co2_val = Waste_Management.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions
-        user = request.user
-
-        get_carbon_score(oxygen_val, home_appliance_co2_val, vehicle_co2_val, waste_management_co2_val, user)
-        
-        context = {
-            'ans': round(ans, 3),
-            'has_ans': True,
-        }
+        context = {}    
         return render(request, 'mainapp/oxygen_emission.html', context)
+        
+        
+
+        
     return render(request, 'mainapp/oxygen_emission.html')
 
 @login_required_message(message="Please log in, in order to view the requested page.")
@@ -130,7 +135,7 @@ def homeappliances(request):
         except ValueError:
             messages.error(request, 'Please enter a valid input.')
         
-        context={}
+        context = {}
         return render(request, 'mainapp/homeappliances.html', context)
     return render(request, 'mainapp/homeappliances.html')
 
