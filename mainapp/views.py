@@ -64,3 +64,10 @@ def waste(request):
     if request.user.is_admin:
             return redirect('adminuser')
     return render(request, 'mainapp/waste.html')
+
+@login_required_message(message="Please log in, in order to view the requested page.")
+@login_required
+def leaderboard(request):
+    if request.user.is_admin:
+            return redirect('adminuser')
+    return render(request, 'mainapp/leaderboard.html')
