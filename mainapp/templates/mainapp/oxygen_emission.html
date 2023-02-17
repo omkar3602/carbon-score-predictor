@@ -4,10 +4,9 @@
 {% block title %}Home Appliances{% endblock title %}
 
 {% block content %}
-<div class= "py-3"></div>
+<div class= "py-4"></div>
     <div class="px-10 min-h-screen">
-        <h3 class="py-4  text-center text-green-900 text-6xl font-bold pt-16 drop-shadow-lg  hover:underline-offset-8">
-            Hello {{ user.fullname }}</h3>
+      <p class="py-4 text-center text-green-900 text-3xl font-bold pt-16 drop-shadow-lg  hover:underline-offset-8">Know the oxygen emission in your surroundings </p>       
               <div class="flex justify-center flex-col alignitems-center h-auto w-auto">
                   <div class="alignitems-center">   
                       <ul class="flex justify-center pb-3">
@@ -92,7 +91,7 @@
             {% csrf_token %}
             <div class="flex items-center mb-10">
                 <label for="plant_species" class="inline-block w-22 mr-6 text-right
-                                            font-bold text-black">Plant Species</label>
+                                            font-bold text-black" >Plant Species</label>
                 <input type="text" id="plant_species" name="plant_species" placeholder="Plant Species" 
                        class="flex-1 py-2 border-b-2 border-gray-400
                               text-gray-600
@@ -100,7 +99,7 @@
               </div>
               <div class="flex items-center mb-10">
                 <label for="light_intensity" class="inline-block w-22 mr-6 text-right
-                                            font-bold text-black">Light Intensity</label>
+                                            font-bold text-black">Light Intensity <span class="text-left font-normal text-sm "> (in lux) </span></label>
                 <input type="number" step="any" id="light_intensity" name="light_intensity" placeholder="Light Intensity" 
                        class="flex-1 py-2 border-b-2 border-gray-400
                               text-gray-600
@@ -108,7 +107,7 @@
               </div>
               <div class="flex items-center mb-10">
                 <label for="carbon_emission" class="inline-block w-22 mr-6 text-right
-                                            font-bold text-black">Carbon Emission</label>
+                                            font-bold text-black">Carbon Concentration<span class="text-left font-normal text-sm "> (in ppm) </span></label>
                 <input type="number" step="any" id="carbon_emission" name="carbon_emission" placeholder="Carbon Emission" 
                        class="flex-1 py-2 border-b-2 border-gray-400
                               text-gray-600
@@ -116,7 +115,7 @@
               </div>
               <div class="flex items-center mb-10">
                 <label for="temperature" class="inline-block w-22 mr-6 text-right
-                                            font-bold text-black">Temperature</label>
+                                            font-bold text-black">Temperature <span class="text-left font-normal text-sm "> (in °C) </span></label>
                 <input type="number" step="any" id="temperature" name="temperature" placeholder="Temperature" 
                        class="flex-1 py-2 border-b-2 border-gray-400
                               text-gray-600
