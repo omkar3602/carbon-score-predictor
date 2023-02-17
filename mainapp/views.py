@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from utils.decorator import login_required_message
-from .models import Oxygen_Emission, HomeAppliance_CO2_Emission, Vehicle_CO2_Emission, Waste_Management
+from .models import Oxygen_Emission, HomeAppliance_CO2_Emission, Vehicle_CO2_Emission, Waste_Management, Carbon_Score
 from userauth.models import Account
 from utils.ml_helpers import predictOxygenEmission, predictHomeApplianceCarbonDioxide, predictVehicleCarbonDioxide, predictWasteManagementCO2Emission
 from utils.score_generator import get_carbon_score
@@ -13,16 +13,30 @@ def index(request):
         if request.user.is_admin:
             return redirect('adminuser')
 
-        oxygen_val = Oxygen_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].oxygen_emission   
-        home_appliance_co2_val = HomeAppliance_CO2_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions   
-        vehicle_co2_val = Vehicle_CO2_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions  
-        waste_management_co2_val = Waste_Management.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions
         
+        if len(Carbon_Score.objects.filter(user=request.user)) > 0:
+            carbon_score_obj = Carbon_Score.objects.filter(user=request.user).order_by('-submitted_on')[0]
+            carbon_score = carbon_score_obj.carbon_score
+        else:
+            carbon_score = False
 
+        if len(HomeAppliance_CO2_Emission.objects.filter(user=request.user)) > 0:
+            home_appliance_co2_val = HomeAppliance_CO2_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions
+        else:
+            home_appliance_co2_val = 0
+        if len(Vehicle_CO2_Emission.objects.filter(user=request.user)) > 0:
+            vehicle_co2_val = Vehicle_CO2_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions
+        else:
+            vehicle_co2_val = 0
+        if len(Waste_Management.objects.filter(user=request.user)) > 0:
+            waste_management_co2_val = Waste_Management.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions
+        else:
+            waste_management_co2_val = 0
         carbon_score_array = [float(home_appliance_co2_val), float(vehicle_co2_val), float(waste_management_co2_val)]
 
         context = {
-            'carbon_score_array':carbon_score_array,
+            'carbon_score_array': carbon_score_array,
+            'carbon_score': round(carbon_score, 3),
         }
         return render(request, 'mainapp/home.html', context)
     return render(request, 'mainapp/index.html')
