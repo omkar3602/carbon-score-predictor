@@ -67,8 +67,12 @@ def homeappliances(request):
         appliance_model = HomeAppliance_CO2_Emission(appliance_type=appliance_type, electricity_units=electricity_units, age=age, maintenance=maintenance, user=request.user, CO2_emissions=ans)
         appliance_model.save()
 
-        messages.info(request, f'Prediction= {ans}')
-        return redirect('homeappliances')
+        context = {
+            'ans': round(ans, 3),
+            'has_ans': True,
+        }
+        
+        return render(request, 'mainapp/homeappliances.html', context)
     return render(request, 'mainapp/homeappliances.html')
 
 @login_required_message(message="Please log in, in order to view the requested page.")
