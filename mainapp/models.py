@@ -40,3 +40,16 @@ class HomeAppliance_CO2_Emission(models.Model):
     CO2_emissions = models.DecimalField(max_digits=5, decimal_places=2)
     def __str__(self):
         return self.user.fullname + self.submitted_on.strftime(f" - [%d %B %Y]")
+
+class Waste_Management(models.Model):
+    e_waste = models.DecimalField(max_digits=5, decimal_places=2)
+    proper_disposal = models.DecimalField(max_digits=5, decimal_places=2) # in %
+    composting = models.DecimalField(max_digits=5, decimal_places=2) # in %
+    recycling = models.DecimalField(max_digits=5, decimal_places=2) # in %
+    
+    submitted_on = models.DateTimeField(default=timezone.now)
+    user = models.ForeignKey(Account, on_delete=models.CASCADE)
+
+    CO2_emissions = models.DecimalField(max_digits=5, decimal_places=2)
+    def __str__(self):
+        return self.user.fullname + self.submitted_on.strftime(f" - [%d %B %Y]")

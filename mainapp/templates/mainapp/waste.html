@@ -4,10 +4,9 @@
 {% block title %}Home Appliances{% endblock title %}
 
 {% block content %}
-<div class= "py-3"></div>
+<div class= "py-4"></div>
     <div class="px-10 min-h-screen">
-        <h3 class="py-4  text-center text-green-900 text-6xl font-bold pt-16 drop-shadow-lg  hover:underline-offset-8">
-            Hello {{ user.fullname }}</h3>
+      <p class="py-4 text-center text-green-900 text-3xl font-bold pt-16 drop-shadow-lg  hover:underline-offset-8">Know how your waste contribute to the carbon score </p>       
               <div class="flex justify-center flex-col alignitems-center h-auto w-auto">
                   <div class="alignitems-center">   
                       <ul class="flex justify-center pb-3">
@@ -90,56 +89,39 @@
       
           <form method="POST">
             {% csrf_token %}
-            <div class="flex items-center mb-5">
-              <label for="name" class="inline-block w-30 mr-6 text-right 
-                                       font-bold text-black">Engine Type</label>
-              <select type="text" id="name" name="engine_type" placeholder="Name" 
-                     class="flex-1 py-2 border-b-2 border-gray-400 focus:border-green-400 
-                            text-gray-600 placeholder-gray-400
-                            outline-none">
-                <option value="Inline_4">Inline 4</option>
-                <option value="v6">v6</option>
-                <option value="v8">v8</option>
-            </select>
-            </div>
-      
             <div class="flex items-center mb-10">
-              <label for="cylingders" class="inline-block w-30 mr-6 text-right
-                                          font-bold text-black">Cylinders</label>
-              <input type="text" id="cylinders" name="cylinders" placeholder="Cylinders" 
-                     class="flex-1 py-2 border-b-2 border-gray-400
-                            text-gray-600
-                            placeholder-gray-400">  <!-- check other class spec upper section -->
-            </div>
-
-            <div class="flex items-center mb-5">
-                <label for="name" class="inline-block w-30 mr-6 text-right 
-                                         font-bold text-black">Transmission</label>
-                <select type="text" id="name" name="engine_type" placeholder="Name" 
-                       class="flex-1 py-2 border-b-2 border-gray-400 focus:border-green-400 
-                              text-gray-600 placeholder-gray-400
-                              outline-none">
-                  <option value="automatic">Automatic</option>
-                  <option value="manual">manual</option>
-                  <option value="CVT">CVT</option>
-              </select>
+                <label for="e_waste" class="inline-block w-22 mr-6 text-right
+                                            font-bold text-black" >E-Waste <span class="text-left font-normal text-sm "> (in kgs) </span></label>
+                <input type="number" step="any" id="e_waste" name="e_waste" placeholder="E-Waste" 
+                       class="flex-1 py-2 border-b-2 border-gray-400
+                              text-gray-600
+                              placeholder-gray-400">  <!-- check other class spec upper section -->
               </div>
-
-            <div class="flex items-center mb-5">
-                <label for="fuel_type" class="inline-block w-30 mr-6 text-right 
-                                         font-bold text-black">Fuel Type</label>
-                <select type="text" id="name" name="transmission" placeholder="Transmission" 
-                       class="flex-1 py-2 border-b-2 border-gray-400 focus:border-green-400 
-                              text-gray-600 placeholder-gray-400
-                              outline-none">
-                  <option value="diesel">Diesel</option>
-                  <option value="petrol">Petrol</option>
-                  <option value="hybrid">Hybrid</option>
-                  <option value="electric">Electric</option>
-
-              </select>
-              </div>              
-      
+              <div class="flex items-center mb-10">
+                <label for="proper_disposal" class="inline-block w-22 mr-6 text-right
+                                            font-bold text-black" >Proper Disposal <span class="text-left font-normal text-sm "> (% of total waste produced) </span></label>
+                <input type="number" step="any" id="proper_disposal" name="proper_disposal" placeholder="% of Proper Disposal" 
+                       class="flex-1 py-2 border-b-2 border-gray-400
+                              text-gray-600
+                              placeholder-gray-400">  <!-- check other class spec upper section -->
+              </div>
+              <div class="flex items-center mb-10">
+                <label for="composting" class="inline-block w-22 mr-6 text-right
+                                            font-bold text-black" >Composting <span class="text-left font-normal text-sm "> (% of total waste produced) </span></label>
+                <input type="number" step="any" id="composting" name="composting" placeholder="% of Composting" 
+                       class="flex-1 py-2 border-b-2 border-gray-400
+                              text-gray-600
+                              placeholder-gray-400">  <!-- check other class spec upper section -->
+              </div>
+              <div class="flex items-center mb-10">
+                <label for="recycling" class="inline-block w-22 mr-6 text-right
+                                            font-bold text-black" >Recycling <span class="text-left font-normal text-sm "> (% of total waste produced) </span></label>
+                <input type="number" step="any" id="recycling" name="recycling" placeholder="% of Recycling" 
+                       class="flex-1 py-2 border-b-2 border-gray-400
+                              text-gray-600
+                              placeholder-gray-400">  <!-- check other class spec upper section -->
+              </div>
+              
             <div class="text-center">
               <button class="py-3 px-8 bg-green-900 text-white font-bold">Submit</button> 
             </div>
@@ -150,3 +132,5 @@
   </div>
 
 {% endblock content %}
+
+
