@@ -5,82 +5,94 @@
 
 {% block content %}
 
-  <div class="pl-10 pb-16 flex relative justify-between h-[600px] overflow-hidden smooth-scroll" style="background-color:rgb(137,189,43);background:linear-gradient(0deg, rgb(186,215,139) 0%, white 100%);">
+  <div class="pl-10 pb-16 flex relative justify-between h-[600px] overflow-hidden smooth-scroll"
+    style="background-color:rgb(137,189,43);background:linear-gradient(0deg, rgb(186,215,139) 0%, white 100%);">
     <div class="w-1/2">
-      <h1 class="text-left text-black text-8xl font-bold pt-[200px] drop-shadow-lg">Conserve <span class="text-green-900">Our Nature</span>
+      <h1 class="text-left text-black text-8xl font-bold pt-[200px] drop-shadow-lg">Conserve <span
+          class="text-green-900">Our Nature</span>
       </h1>
       <h1 class="text-left text-gray-700 font-normal text-2xl pt-2 pb-10 ">Cut Carbon and care for the planet</h1>
-      
-    </div>    
-    <img
-      src="{% static 'images/banner_img.png' %}"
-      class="float-right h-3/4 absolute top-[120px] right-[-150px]"
-      alt="Idea"
-      />    
+    </div>
+    <img src="{% static 'images/banner_img.png' %}" class="float-right h-3/4 absolute top-[120px] right-[-150px]"
+      alt="Idea" />
   </div>
   <div class="h">
     {% comment %} <img src="{% static 'images/bg-img.jpg' %}" class="object-cover w-full " alt=""> {% endcomment %}
   </div>
   <div id="carbon_score" class="mt-16">
-    <!-- <h3 class="py-4  text-center text-green-700 text-4xl font-bold pt-16 drop-shadow-lg  hover:underline-offset-8">
-      Calculate your Carbon score</h3> -->
-     
-      <div class="flex flex-row gap-4 p-16 mx-28">
-       
-          <img class="flex-1 h-56 md:h-auto object-cover w-1/2 py-8" src="{% static 'images/carbon_score.jpeg' %}" alt="" />
-         <div class=" flex-2">
-          <div class=" p-6 flex flex-col justify-center items-center text-center">
-            <h5 class="text-gray-900 text-3xl font-bold font-medium mb-2">CALCULATE YOUR CARBON SCORE</h5>
-           <br><br>
-            <p class="text-gray-700 text-base mb-4">
-                The carbon score is a measure of the environmental impact of a product or service in terms of its carbon footprint.
-                Carbon scores are just one aspect of a product or service's environmental impact, and may not capture other important considerations such as resource depletion, water use, or biodiversity loss. However, they can be a useful tool for consumers who are interested in reducing their carbon footprint and mitigating the impacts of climate change.
-            </p>
-                <a href="{% url 'homeappliances' %}" class="w-64 mt-6 bg-green-700 hover:bg-black text-white font-semibold hover:text-green-500 py-2 px-4 border border-green-500 hover:border-transparent rounded inline-flex items-center justify-around">
-                    Check Carbon Score <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="w-5 h-5 fill-current text-white hover:fill-green-700">
-                      <path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"/></svg>
-                </a>
-          </div>
+    <div class="flex flex-row gap-4 p-16 mx-28">
+      <img class="flex-1 h-56 md:h-auto object-cover w-1/2 py-8" src="{% static 'images/carbon_score.jpeg' %}" alt="" />
+      <div class=" flex-2">
+        <div class=" p-6 flex flex-col justify-center items-center text-center">
+          <h5 class="text-gray-900 text-3xl font-bold font-medium mb-2">CALCULATE YOUR CARBON SCORE</h5>
+          <br><br>
+          <p class="text-gray-700 text-base mb-4">
+            The carbon score is a measure of the environmental impact of a product or service in terms of its carbon
+            footprint.
+            Carbon scores are just one aspect of a product or service's environmental impact, and may not capture other
+            important considerations such as resource depletion, water use, or biodiversity loss. However, they can be a
+            useful tool for consumers who are interested in reducing their carbon footprint and mitigating the impacts of
+            climate change.
+          </p>
+          <a href="{% url 'homeappliances' %}"
+            class="w-64 mt-6 bg-green-700 hover:bg-black text-white font-semibold hover:text-green-500 py-2 px-4 border border-green-500 hover:border-transparent rounded inline-flex items-center justify-around">
+            Check Carbon Score <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+              class="w-5 h-5 fill-current text-white hover:fill-green-700">
+              <path
+                d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z" />
+            </svg>
+          </a>
         </div>
-        </div>
-    
+      </div>
+    </div>
   </div>
  
-  <div class="text-center " style="background-color:rgb(137,189,43);background:linear-gradient(0deg, rgb(186,215,139) 0%, white 100%);">
-    <h1 class="font-bold text-5xl pt-32">KNOW YOUR CARBON BREAKDOWN</h1>
-  <div class="pl-10 pb-14 flex relative justify-between h-[600px] overflow-hidden smooth-scroll flex flex-row gap-4 mx-28" >
-    <div class="p-6 flex flex-col justify-center items-center text-center">
-     <h2 class="font-semibold text-2xl text-black-200 font-roboto">Climate change is here now. We can limit further warming and the dangers it poses—if we act now. 
-      Every fraction of a degree matters.</h2>
+  
+<!-- line chart -->
+<div class="text-center "
+    style="background-color:rgb(137,189,43);background:linear-gradient(0deg, rgb(186,215,139) 0%, white 100%);">
+    <h1 class="font-bold text-5xl pt-32">GET YOUR MONTHLY CARBON SCORE</h1>
+    <div
+      class="pl-10 pb-14 flex relative justify-between h-[600px] overflow-hidden smooth-scroll flex flex-row gap-4 mx-28">
+      <div class="flex flex-1 h-56 md:h-auto object-cover w-1/2 m-5 mx-20 flex justify-center items-center "
+        style="position: relative; height:70vh; width:90vw">
+        <canvas class="p-10" id="chartLine"></canvas>
+      </div>
     </div>
-    
-  
-      <div class="flex flex-1 h-56 md:h-auto object-cover w-1/2 m-5 mx-20 flex justify-center items-center " style="position: relative; height:70vh; width:90vw">
+  </div>
+ 
+  <!-- donughnut chart -->
+  <div class="text-center ">
+    <h1 class="font-bold text-5xl pt-32">KNOW YOUR CARBON BREAKDOWN</h1>
+    <div
+      class="pl-10 pb-14 flex relative justify-between h-[600px] overflow-hidden smooth-scroll flex flex-row gap-4 mx-28">
+      <div class="p-6 flex flex-col justify-center items-center text-center">
+        <h2 class="font-semibold text-2xl text-black-200 font-roboto">Climate change is here now. We can limit further
+          warming and the dangers it poses—if we act now.
+          Every fraction of a degree matters.</h2>
+      </div>
+      <div class="flex flex-1 h-56 md:h-auto object-cover w-1/2 m-5 mx-20 flex justify-center items-center "
+        style="position: relative; height:70vh; width:90vw">
         <canvas class="p-10 " id="chartDoughnut1"></canvas>
-      </div>   
+      </div>
+    </div>
+  </div>
   
-  </div>
-  </div>
-   
-
-
-
-
   <script>
-    function dynamicColors() {
-      var r = Math.floor(Math.random() * 255);
-      var g = Math.floor(Math.random() * 255);
-      var b = Math.floor(Math.random() * 255);
-      return "rgba(" + r + "," + g + "," + b + ", 0.5)";
-    }
+    // function dynamicColors() {
+    //   var r = Math.floor(Math.random() * 255);
+    //   var g = Math.floor(Math.random() * 255);
+    //   var b = Math.floor(Math.random() * 255);
+    //   return "rgba(" + r + "," + g + "," + b + ", 0.5)";
+    // }
 
-    function poolColors(a) {
-      var pool = [];
-      for (i = 0; i < a; i++) {
-        pool.push(dynamicColors());
-      }
-      return pool;
-    }
+    // function poolColors(a) {
+    //   var pool = [];
+    //   for (i = 0; i < a; i++) {
+    //     pool.push(dynamicColors());
+    //   }
+    //   return pool;
+    // }
     const dataDoughnut1 = {
     labels: [
       "Home Appliances",
@@ -120,6 +132,32 @@
       console.log(type);
       chartBar.update();
     };
+    //line chart
+
+    const labels = ["January", "February", "March", "April", "May", "June",
+    "July","August","September","October","November","December"];
+    const data = {
+      labels: labels,
+      datasets: [
+        {
+          label: "Count of Monthly Carbon Score",
+          backgroundColor: "hsl(0, 100%, 35%)",
+          borderColor: "hsl(0, 100%, 35%)",
+          data: [0, 10, 5, 2, 20, 30, 45],
+        },
+      ],
+    };
+
+    const configLineChart = {
+      type: "line",
+      data,
+      options: {},
+    };
+
+    var chartLine = new Chart(
+      document.getElementById("chartLine"),
+      configLineChart
+    );
   </script>
   
  {% endblock content %}
