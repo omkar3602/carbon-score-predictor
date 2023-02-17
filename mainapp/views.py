@@ -6,6 +6,7 @@ from userauth.models import Account
 from utils.ml_helpers import predictOxygenEmission, predictHomeApplianceCarbonDioxide, predictVehicleCarbonDioxide, predictWasteManagementCO2Emission
 from utils.score_generator import get_carbon_score
 from django.utils import timezone
+from django.contrib import messages
 
 
 # Create your views here.
@@ -62,14 +63,19 @@ def oxygen_emission(request):
         data = request.POST
 
         plant_species = data['plant_species']
-        plant_species = plant_species.strip().capitalize()
+        plant_species = plant_species.strip().title()
         light_intensity = data['light_intensity']
         carbon_emission = data['carbon_emission']
         temperature = data['temperature']
-        ans = predictOxygenEmission(plant_species=plant_species, light_intensity=light_intensity, carbon_emission=carbon_emission, temperature=temperature)
-
-        oxygen_model = Oxygen_Emission(plant_species=plant_species, light_intensity=light_intensity, carbon_emission=carbon_emission, temperature=temperature, user=request.user, oxygen_emission=ans)
-        oxygen_model.save()
+        
+        try:
+            ans = predictOxygenEmission(plant_species=plant_species, light_intensity=light_intensity, carbon_emission=carbon_emission, temperature=temperature)
+            oxygen_model = Oxygen_Emission(plant_species=plant_species, light_intensity=light_intensity, carbon_emission=carbon_emission, temperature=temperature, user=request.user, oxygen_emission=ans)
+            oxygen_model.save()
+        except ValueError:
+            messages.error(request, 'Please enter a valid input.')
+            
+        
 
         oxygen_val = Oxygen_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].oxygen_emission   
         home_appliance_co2_val = HomeAppliance_CO2_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions   
@@ -93,23 +99,26 @@ def homeappliances(request):
             return redirect('adminuser')
     if request.method == "POST":
         data = request.POST
-
         appliance_type = data['appliance_type']
-        appliance_type = appliance_type.strip().capitalize()
+        appliance_type = appliance_type.strip().title()
         electricity_units = data['electricity_units']
         age = data['age']
         maintenance = data['maintenance']
 
-        ans = predictHomeApplianceCarbonDioxide(electricity_units, age, maintenance, appliance_type)
-
-        appliance_model = HomeAppliance_CO2_Emission(appliance_type=appliance_type, electricity_units=electricity_units, age=age, maintenance=maintenance, user=request.user, CO2_emissions=ans)
-        appliance_model.save()
-
-        context = {
+        try:
+            ans = predictHomeApplianceCarbonDioxide(electricity_units, age, maintenance, appliance_type)
+            appliance_model = HomeAppliance_CO2_Emission(appliance_type=appliance_type, electricity_units=electricity_units, age=age, maintenance=maintenance, user=request.user, CO2_emissions=ans)
+            appliance_model.save()
+            context = {
             'ans': round(ans, 3),
             'has_ans': True,
-        }
+            }
+            return render(request, 'mainapp/homeappliances.html', context)
+            
+        except ValueError:
+            messages.error(request, 'Please enter a valid input.')
         
+        context={}
         return render(request, 'mainapp/homeappliances.html', context)
     return render(request, 'mainapp/homeappliances.html')
 
