@@ -28,7 +28,7 @@
       <div class="flex justify-center">
         {% comment %} {% post_to_twitter "New Song: {{object.title}}. Check it out!" object_or_url "Post to Twitter" %}
         {% send_email object.title "New Song: {{object.title}}. Check it out!" object_or_url "Share via email" %} {% endcomment %}
-        <span style="float:left;margin-left:10px;" class="nav-item">{% post_to_facebook "My Carbon score is {{ carbon_score }}. Check out yours here:" object_or_url '<i class="fab fa-facebook fa-2x"></i>' %}</span>
+        <span style="float:left;margin-left:10px;" class="nav-item">{% post_to_facebook object_or_url '<i class="fab fa-facebook fa-2x"></i>' %}</span>
         <span style="float:left;margin-left:10px;" class="nav-item"> {% post_to_twitter "My Carbon score is {{ carbon_score }}. Check out yours here:" object_or_url '<i class="fa-brands fa-twitter fa-2x"></i>' %}</span>
         <span style="float:left;margin-left:10px;" class="nav-item">{% send_email object.title "My Carbon score is {{ carbon_score }}. Check out yours here:" object_or_url  '<i class="fa fa-envelope fa-2x"></i>' %}</span>
         
