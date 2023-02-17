@@ -1,1 +1,1 @@
-git update-index --skip-worktree db.sqlite3
+git restore db.sqlite3
