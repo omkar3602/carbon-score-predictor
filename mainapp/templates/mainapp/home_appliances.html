@@ -4,11 +4,11 @@
 {% block title %}Home Appliances{% endblock title %}
 
 {% block content %}
-<div class= "py-3"></div>
+<div class= "py-10"></div>
     <div class="px-10 min-h-screen">
-        <h3 class="py-4  text-center text-green-900 text-6xl font-bold pt-16 drop-shadow-lg  hover:underline-offset-8">
-            Hello {{ user.fullname }}</h3>
-              <div class="flex justify-center flex-col alignitems-center h-auto w-auto">
+        {% comment %} <h3 class="py-4  text-center text-green-900 text-6xl font-bold pt-16 drop-shadow-lg  hover:underline-offset-8">
+            Hello {{ user.fullname }}</h3> {% endcomment %}
+              <div class="flex justify-center flex-col alignitems-center h-auto w-auto py-4">
                   <div class="alignitems-center">   
                       <ul class="flex justify-center pb-3">
                         <li class="mr-3" > 
@@ -90,7 +90,7 @@
       
           <form action="">
             <div class="flex items-center mb-10">
-                <label for="electricity_units" class="inline-block w-22 mr-6 text-right
+                <label for="electricity_units" class="inline-block w-30 mr-6 text-right
                                             font-bold text-black">Electricity Units</label>
                 <input type="text" id="electricity_units" name="electricity_units" placeholder="Electricity Units" 
                        class="flex-1 py-2 border-b-2 border-gray-400
@@ -98,7 +98,7 @@
                               placeholder-gray-400">  <!-- check other class spec upper section -->
               </div>
               <div class="flex items-center mb-10">
-                <label for="age" class="inline-block w-20 mr-6 text-right
+                <label for="age" class="inline-block w-30 mr-6 text-right
                                             font-bold text-black">Age</label>
                 <input type="text" id="age" name="age" placeholder="Age" 
                        class="flex-1 py-2 border-b-2 border-gray-400
