@@ -15,13 +15,12 @@ def index(request):
         if request.user.is_admin:
             return redirect('adminuser')
 
-        
+        carbon_scores = []
+        dates = []
         if len(Carbon_Score.objects.filter(user=request.user)) > 0:
             carbon_score_obj = Carbon_Score.objects.filter(user=request.user)
             line_carbon_score_array = carbon_score_obj.order_by('submitted_on')
 
-            carbon_scores = []
-            dates = []
             for score in line_carbon_score_array.values('carbon_score', 'submitted_on'):
                 carbon_scores.append(float(score['carbon_score']))
                 dates.append(score['submitted_on'].strftime("%d %B %Y"))
@@ -33,18 +32,31 @@ def index(request):
         if len(HomeAppliance_CO2_Emission.objects.filter(user=request.user)) > 0:
             home_appliance_co2_val = HomeAppliance_CO2_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions
         else:
-            home_appliance_co2_val = 0
+            home_appliance_co2_val = False
         if len(Vehicle_CO2_Emission.objects.filter(user=request.user)) > 0:
             vehicle_co2_val = Vehicle_CO2_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions
         else:
-            vehicle_co2_val = 0
+            vehicle_co2_val = False
         if len(Waste_Management.objects.filter(user=request.user)) > 0:
             waste_management_co2_val = Waste_Management.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions
         else:
-            waste_management_co2_val = 0
+            waste_management_co2_val = False
         carbon_score_array = [float(home_appliance_co2_val), float(vehicle_co2_val), float(waste_management_co2_val)]
 
+        if len(carbon_scores) > 0:
+            show_line_chart = True
+        else:
+            show_line_chart = False
+        
+        if carbon_score_array[0] != False and carbon_score_array[1] != False and carbon_score_array[2] != False:
+            show_pie_chart = True
+        else:
+            show_pie_chart = False
+
+
         context = {
+            'show_line_chart': show_line_chart,
+            'show_pie_chart': show_pie_chart,
             'carbon_scores': carbon_scores,
             'dates': dates,
             'carbon_score_array': carbon_score_array,
