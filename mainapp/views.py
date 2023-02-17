@@ -5,6 +5,7 @@ from .models import Oxygen_Emission, HomeAppliance_CO2_Emission, Vehicle_CO2_Emi
 from userauth.models import Account
 from utils.ml_helpers import predictOxygenEmission, predictHomeApplianceCarbonDioxide, predictVehicleCarbonDioxide, predictWasteManagementCO2Emission
 from utils.score_generator import get_carbon_score
+from django.utils import timezone
 
 
 # Create your views here.
@@ -15,8 +16,16 @@ def index(request):
 
         
         if len(Carbon_Score.objects.filter(user=request.user)) > 0:
-            carbon_score_obj = Carbon_Score.objects.filter(user=request.user).order_by('-submitted_on')[0]
-            carbon_score = carbon_score_obj.carbon_score
+            carbon_score_obj = Carbon_Score.objects.filter(user=request.user)
+            line_carbon_score_array = carbon_score_obj.order_by('submitted_on')
+
+            carbon_scores = []
+            dates = []
+            for score in line_carbon_score_array.values('carbon_score', 'submitted_on'):
+                carbon_scores.append(float(score['carbon_score']))
+                dates.append(score['submitted_on'].strftime("%d %B %Y"))
+            carbon_score_single = carbon_score_obj.order_by('-submitted_on')[0]
+            carbon_score = carbon_score_single.carbon_score
         else:
             carbon_score = False
 
@@ -35,6 +44,8 @@ def index(request):
         carbon_score_array = [float(home_appliance_co2_val), float(vehicle_co2_val), float(waste_management_co2_val)]
 
         context = {
+            'carbon_scores': carbon_scores,
+            'dates': dates,
             'carbon_score_array': carbon_score_array,
             'carbon_score': round(carbon_score, 3),
             'carbon_score_scroll': request.GET.get('carbon_score_scroll')

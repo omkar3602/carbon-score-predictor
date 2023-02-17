@@ -63,7 +63,7 @@
 <!-- line chart -->
 <div class="text-center "
     style="background-color:rgb(137,189,43);background:linear-gradient(0deg, rgb(186,215,139) 0%, white 100%);">
-    <h1 class="font-bold text-5xl pt-32">GET YOUR MONTHLY CARBON SCORE</h1>
+    <h1 class="font-bold text-5xl pt-32">GET YOUR CARBON SCORE TIMELINE</h1>
     <div
       class="pl-10 pb-14 flex relative justify-between h-[600px] overflow-hidden smooth-scroll flex flex-row gap-4 mx-28">
       <div class="flex flex-1 h-56 md:h-auto object-cover w-1/2 m-5 mx-20 flex justify-center items-center "
@@ -426,16 +426,15 @@
     };
     //line chart
 
-    const labels = ["January", "February", "March", "April", "May", "June",
-    "July","August","September","October","November","December"];
+    const labels = {{ dates|safe }};
     const data = {
       labels: labels,
       datasets: [
         {
-          label: "Count of Monthly Carbon Score",
+          label: "Carbon Score",
           backgroundColor: "hsl(0, 100%, 35%)",
           borderColor: "hsl(0, 100%, 35%)",
-          data: [0, 10, 5, 2, 20, 30, 45],
+          data: {{ carbon_scores|safe }},
         },
       ],
     };
