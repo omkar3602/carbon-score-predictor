@@ -88,11 +88,11 @@
               </div>
         <div class="bg-white border border-green-900 rounded-lg py-8 px-10 md:w-3/4 lg:w-2/3 mx-auto mb-5">
       
-          <form action="">
+          <form action="POST">
             <div class="flex items-center mb-10">
                 <label for="electricity_units" class="inline-block w-30 mr-6 text-right
                                             font-bold text-black">Electricity Units</label>
-                <input type="text" id="electricity_units" name="electricity_units" placeholder="Electricity Units" 
+                <input type="number" step="any" id="electricity_units" name="electricity_units" placeholder="Electricity Units" 
                        class="flex-1 py-2 border-b-2 border-gray-400
                               text-gray-600
                               placeholder-gray-400">  <!-- check other class spec upper section -->
@@ -100,13 +100,13 @@
               <div class="flex items-center mb-10">
                 <label for="age" class="inline-block w-30 mr-6 text-right
                                             font-bold text-black">Age</label>
-                <input type="text" id="age" name="age" placeholder="Age" 
+                <input type="number" step="any" id="age" name="age" placeholder="Age" 
                        class="flex-1 py-2 border-b-2 border-gray-400
                               text-gray-600
                               placeholder-gray-400">  <!-- check other class spec upper section -->
               </div>
             <div class="flex items-center mb-5">
-              <label for="name" class="inline-block w-30 mr-6 text-right 
+              <label for="maintenance" class="inline-block w-30 mr-6 text-right 
                                        font-bold text-black">Maintenance</label>
               <select type="text" id="name" name="maintenance" placeholder="Maintenance" 
                      class="flex-1 py-2 border-b-2 border-gray-400 focus:border-green-400 

@@ -101,7 +101,7 @@
               <div class="flex items-center mb-10">
                 <label for="light_intensity" class="inline-block w-22 mr-6 text-right
                                             font-bold text-black">Light Intensity</label>
-                <input type="text" id="light_intensity" name="light_intensity" placeholder="Light Intensity" 
+                <input type="number" step="any" id="light_intensity" name="light_intensity" placeholder="Light Intensity" 
                        class="flex-1 py-2 border-b-2 border-gray-400
                               text-gray-600
                               placeholder-gray-400">  <!-- check other class spec upper section -->
@@ -109,7 +109,7 @@
               <div class="flex items-center mb-10">
                 <label for="carbon_emission" class="inline-block w-22 mr-6 text-right
                                             font-bold text-black">Carbon Emission</label>
-                <input type="text" id="carbon_emission" name="carbon_emission" placeholder="Carbon Emission" 
+                <input type="number" step="any" id="carbon_emission" name="carbon_emission" placeholder="Carbon Emission" 
                        class="flex-1 py-2 border-b-2 border-gray-400
                               text-gray-600
                               placeholder-gray-400">  <!-- check other class spec upper section -->
@@ -117,7 +117,7 @@
               <div class="flex items-center mb-10">
                 <label for="temperature" class="inline-block w-22 mr-6 text-right
                                             font-bold text-black">Temperature</label>
-                <input type="text" id="temperature" name="temperature" placeholder="Temperature" 
+                <input type="number" step="any" id="temperature" name="temperature" placeholder="Temperature" 
                        class="flex-1 py-2 border-b-2 border-gray-400
                               text-gray-600
                               placeholder-gray-400">  <!-- check other class spec upper section -->
@@ -132,3 +132,5 @@
   </div>
 
 {% endblock content %}
+
+
