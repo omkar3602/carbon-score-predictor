@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from utils.decorator import login_required_message
-from .models import Oxygen_Emission
+from .models import Oxygen_Emission, HomeAppliance_CO2_Emission, Vehicle_CO2_Emission
 from utils.ml_helpers import predictOxygenEmission, predictHomeApplianceCarbonDioxide, predictVehicleCarbonDioxide
 
 # Create your views here.
@@ -43,11 +43,19 @@ def homeappliances(request):
     if request.method == "POST":
         data = request.POST
 
+        appliance_type = data['appliance_type']
+        appliance_type = appliance_type.strip().capitalize()
         electricity_units = data['electricity_units']
         age = data['age']
         maintenance = data['maintenance']
 
-        # ans = predictHomeApplianceCarbonDioxide(electricity_units, age, maintenance, appliance_type)
+        ans = predictHomeApplianceCarbonDioxide(electricity_units, age, maintenance, appliance_type)
+
+        # appliance_model = HomeAppliance_CO2_Emission(appliance_type=appliance_type, electricity_units=electricity_units, age=age, maintenance=maintenance, user=request.user, CO2_emissions=ans)
+        # appliance_model.save()
+
+        print(f'Prediction= {ans}')
+        messages.info(request, f'Prediction= {ans}')
         return redirect('homeappliances')
     return render(request, 'mainapp/homeappliances.html')
 
@@ -62,6 +70,9 @@ def vehicles(request):
         cylinders = data['cylinders']
         transmission = data['transmission']
         fuel_type = data['fuel_type']
+
+        return redirect('vehicles')
+
     return render(request, 'mainapp/vehicles.html')
 
 @login_required_message(message="Please log in, in order to view the requested page.")
