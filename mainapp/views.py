@@ -56,6 +56,12 @@ def homeappliances(request):
 def vehicles(request):
     if request.user.is_admin:
             return redirect('adminuser')
+    if request.method == 'POST':
+        data = request.POST
+        engine_type = data['engine_type']
+        cylinders = data['cylinders']
+        transmission = data['transmission']
+        fuel_type = data['fuel_type']
     return render(request, 'mainapp/vehicles.html')
 
 @login_required_message(message="Please log in, in order to view the requested page.")

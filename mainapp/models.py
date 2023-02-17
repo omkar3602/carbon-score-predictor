@@ -30,10 +30,10 @@ class Vehicle_CO2_Emission(models.Model):
         return self.user.fullname + self.submitted_on.strftime(f" - [%d %B %Y]")
 
 class HomeAppliance_CO2_Emission(models.Model):
+    appliance_type = models.CharField(max_length=30)
     electricity_units = models.DecimalField(max_digits=5, decimal_places=2)
     age = models.DecimalField(max_digits=5, decimal_places=2)
     maintenance = models.CharField(max_length=30) # Regular, Irregular
-
     submitted_on = models.DateTimeField(default=timezone.now)
     user = models.ForeignKey(Account, on_delete=models.CASCADE)
 
