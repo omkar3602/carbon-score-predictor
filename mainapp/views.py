@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from utils.decorator import login_required_message
 from .models import Oxygen_Emission, HomeAppliance_CO2_Emission, Vehicle_CO2_Emission, Waste_Management
+from userauth.models import Account
 from utils.ml_helpers import predictOxygenEmission, predictHomeApplianceCarbonDioxide, predictVehicleCarbonDioxide, predictWasteManagementCO2Emission
 
 # Create your views here.
@@ -109,4 +110,10 @@ def waste(request):
 def leaderboard(request):
     if request.user.is_admin:
             return redirect('adminuser')
-    return render(request, 'mainapp/leaderboard.html')
+
+    users = Account.objects.filter(is_admin=False).order_by('carbon_score')
+    
+    context = {
+        'users':users,
+    }
+    return render(request, 'mainapp/leaderboard.html', context)
