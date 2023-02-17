@@ -47,5 +47,9 @@ class Waste_Management(models.Model):
     composting = models.DecimalField(max_digits=5, decimal_places=2) # in %
     recycling = models.DecimalField(max_digits=5, decimal_places=2) # in %
     
+    submitted_on = models.DateTimeField(default=timezone.now)
+    user = models.ForeignKey(Account, on_delete=models.CASCADE)
+
+    CO2_emissions = models.DecimalField(max_digits=5, decimal_places=2)
     def __str__(self):
         return self.user.fullname + self.submitted_on.strftime(f" - [%d %B %Y]")

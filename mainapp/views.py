@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from utils.decorator import login_required_message
-from .models import Oxygen_Emission, HomeAppliance_CO2_Emission, Vehicle_CO2_Emission
-from utils.ml_helpers import predictOxygenEmission, predictHomeApplianceCarbonDioxide, predictVehicleCarbonDioxide
+from .models import Oxygen_Emission, HomeAppliance_CO2_Emission, Vehicle_CO2_Emission, Waste_Management
+from utils.ml_helpers import predictOxygenEmission, predictHomeApplianceCarbonDioxide, predictVehicleCarbonDioxide, predictWasteManagementCO2Emission
 
 # Create your views here.
 def index(request):
@@ -54,7 +54,6 @@ def homeappliances(request):
         # appliance_model = HomeAppliance_CO2_Emission(appliance_type=appliance_type, electricity_units=electricity_units, age=age, maintenance=maintenance, user=request.user, CO2_emissions=ans)
         # appliance_model.save()
 
-        print(f'Prediction= {ans}')
         messages.info(request, f'Prediction= {ans}')
         return redirect('homeappliances')
     return render(request, 'mainapp/homeappliances.html')
@@ -71,6 +70,12 @@ def vehicles(request):
         transmission = data['transmission']
         fuel_type = data['fuel_type']
 
+        ans = predictVehicleCarbonDioxide(engine_type, cylinders, transmission, fuel_type)
+
+        # vehicle_model = Vehicle_CO2_Emission(engine_type=engine_type, cylinders=cylinders, transmission=transmission, fuel_type=fuel_type, user=request.user, CO2_emissions=ans)
+        # vehicle_model.save()
+
+        messages.info(request, f'Prediction= {ans}')
         return redirect('vehicles')
 
     return render(request, 'mainapp/vehicles.html')
@@ -87,6 +92,13 @@ def waste(request):
         proper_disposal = data['proper_disposal']
         composting = data['composting']
         recycling = data['recycling']
+
+        ans = predictWasteManagementCO2Emission(e_waste, proper_disposal, composting, recycling)
+
+        # waste_model = Waste_Management(e_waste=e_waste, proper_disposal=proper_disposal, composting=composting, recycling=recycling, user=request.user, CO2_emissions=ans)
+        # waste_model.save()
+
+        messages.info(request, f'Prediction= {ans}')
 
         return redirect('waste')
     return render(request, 'mainapp/waste.html')

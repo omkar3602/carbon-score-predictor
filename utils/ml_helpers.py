@@ -42,7 +42,7 @@ def predictVehicleCarbonDioxide(engine_type, cylinders, transmission, fuel_type)
 
 # Waste management CO2 emission predict function
 
-def wasteManagementCO2Emission(ewaste, proper_disposal, composting, recycling):
+def predictWasteManagementCO2Emission(e_waste, proper_disposal, composting, recycling):
     model=pickle.load(open('utils/Pickle_Files/waste_management_model.pkl', 'rb'))
-    ans=model.predict([[ewaste, proper_disposal, composting, recycling]])
+    ans=model.predict([[e_waste, proper_disposal, composting, recycling]])
     return ans[0]
