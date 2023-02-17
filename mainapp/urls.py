@@ -7,7 +7,6 @@ urlpatterns = [
     path('adminuser', RedirectView.as_view(url=reverse_lazy('admin:index')), name='adminuser'),
  
     path('oxygen_emission/', views.oxygen_emission, name='oxygen_emission'),
-    path('carbon_footprint/', views.carbon_footprint, name='carbon_footprint'),
     path('vehicles/', views.vehicles, name='vehicles'),
     path('homeappliances/', views.homeappliances, name='homeappliances'),
     path('waste/', views.waste, name='waste'),

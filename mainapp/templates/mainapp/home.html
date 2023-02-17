@@ -36,12 +36,9 @@
                 The carbon score is a measure of the environmental impact of a product or service in terms of its carbon footprint.
                 Carbon scores are just one aspect of a product or service's environmental impact, and may not capture other important considerations such as resource depletion, water use, or biodiversity loss. However, they can be a useful tool for consumers who are interested in reducing their carbon footprint and mitigating the impacts of climate change.
             </p>
-            <form method="POST" action="{% url 'homeappliances' %}">
-                {% csrf_token %}
-                <button type="submit" class="w-64 mt-6 bg-green-700 hover:bg-black text-white font-semibold hover:text-green-500 py-2 px-4 border border-green-500 hover:border-transparent rounded">
+                <a href="{% url 'homeappliances' %}" class="w-64 mt-6 bg-green-700 hover:bg-black text-white font-semibold hover:text-green-500 py-2 px-4 border border-green-500 hover:border-transparent rounded">
                     Check Carbon Score
-                </button>
-            </form>
+                </a>
           </div>
         </div>
         </div>

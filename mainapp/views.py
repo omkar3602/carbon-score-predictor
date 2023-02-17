@@ -20,7 +20,9 @@ def oxygen_emission(request):
             return redirect('adminuser')
     if request.method == "POST":
         data = request.POST
+
         plant_species = data['plant_species']
+        plant_species = plant_species.strip().capitalize()
         light_intensity = data['light_intensity']
         carbon_emission = data['carbon_emission']
         temperature = data['temperature']
@@ -31,14 +33,7 @@ def oxygen_emission(request):
         
         messages.info(request, f'Prediction= {ans}')
         return redirect('oxygen_emission')
-    return render(request, 'mainapp/get_oxygen_emission.html')
-
-@login_required_message(message="Please log in, in order to view the requested page.")
-@login_required
-def carbon_footprint(request):
-    if request.user.is_admin:
-            return redirect('adminuser')
-    return render(request, 'mainapp/get_carbon_footprint.html')
+    return render(request, 'mainapp/oxygen_emission.html')
 
 @login_required_message(message="Please log in, in order to view the requested page.")
 @login_required
