@@ -1,4 +1,7 @@
 import pickle
+import warnings
+warnings.filterwarnings('ignore', category=DeprecationWarning)
+warnings.filterwarnings('ignore', category=FutureWarning)
 
 # Predict function for oxygen emission prediction
 
