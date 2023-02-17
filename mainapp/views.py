@@ -37,6 +37,7 @@ def index(request):
         context = {
             'carbon_score_array': carbon_score_array,
             'carbon_score': round(carbon_score, 3),
+            'carbon_score_scroll': request.GET.get('carbon_score_scroll')
         }
         return render(request, 'mainapp/home.html', context)
     return render(request, 'mainapp/index.html')
@@ -156,8 +157,15 @@ def waste(request):
 def leaderboard(request):
     if request.user.is_admin:
         return redirect('adminuser')
-    users = Account.objects.filter(is_admin=False).order_by('carbon_score')
-    
+    users = Account.objects.filter(is_admin=False).values('fullname', 'id')
+    users = list(users)
+    for user in users:
+        if len(Carbon_Score.objects.filter(user=user['id'])) > 0:
+            carbon_score_obj = Carbon_Score.objects.filter(user=user['id']).order_by('-submitted_on')[0]
+            carbon_score = carbon_score_obj.carbon_score
+            user['carbon_score'] = carbon_score
+        else:
+            user['carbon_score'] = "-"
     context = {
         'users':users,
     }

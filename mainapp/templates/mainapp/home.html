@@ -11,7 +11,7 @@
       <h1 class="text-left text-black text-8xl font-bold pt-[200px] drop-shadow-lg">Conserve <span
           class="text-green-900">Our Nature</span>
       </h1>
-      <h1 class="text-left text-gray-700 font-normal text-2xl pt-2 pb-10 ">Cut Carbon and care for the planet</h1>
+      <h1 id="carbon_score" class="text-left text-gray-700 font-normal text-2xl pt-2 pb-10 ">Cut Carbon and care for the planet</h1>
     </div>
     <img src="{% static 'images/banner_img.png' %}" class="float-right h-3/4 absolute top-[120px] right-[-150px]"
       alt="Idea" />
@@ -20,7 +20,7 @@
     {% comment %} <img src="{% static 'images/bg-img.jpg' %}" class="object-cover w-full " alt=""> {% endcomment %}
   </div>
   {% if carbon_score %}
-  <div id="prediction" class="bg-black border mt-12 text-white text-center uppercase rounded-lg py-8 px-10 md:w-3/4 lg:w-2/3 mx-auto mb-5">
+  <div id="carbon_score_id" class="bg-black border mt-12 text-white text-center uppercase rounded-lg py-8 px-10 md:w-3/4 lg:w-2/3 mx-auto mb-5">
     <p class="text-sm font-normal">Carbon score is the net value that is subtraction of carbon emission and oxygen emission<p>
     <p class="text-3xl font-bold">Your Carbon Score is <span class="text-[#BAD78B]">{{ carbon_score }}</span><p>
   </div>
@@ -444,6 +444,9 @@
       document.getElementById("chartLine"),
       configLineChart
     );
+    {% if carbon_score_scroll %}
+      window.location.hash = '#carbon_score';
+    {% endif %}
   </script>
   
  {% endblock content %}
