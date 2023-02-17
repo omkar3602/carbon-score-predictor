@@ -130,6 +130,8 @@
         {% if has_ans %}
         <div id="prediction" class="bg-[#BAD78B] border text-white text-3xl text-center font-bold uppercase rounded-lg py-8 px-10 md:w-3/4 lg:w-2/3 mx-auto mb-5">
           Your Oxygen Emission is <span class="text-black">{{ ans }}</span>
+          <br>          
+          <a class="py-2 px-2 text-sm font-bold text-white  bg-green-900 transition duration-300 " href="{% url 'home' %}">Get Final Score</a>    
         </div>
         {% endif %}
       </div>  
