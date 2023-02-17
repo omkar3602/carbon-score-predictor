@@ -80,6 +80,15 @@ def vehicles(request):
 def waste(request):
     if request.user.is_admin:
             return redirect('adminuser')
+    if request.method == 'POST':
+        data = request.POST
+
+        e_waste = data['e_waste']
+        proper_disposal = data['proper_disposal']
+        composting = data['composting']
+        recycling = data['recycling']
+
+        return redirect('waste')
     return render(request, 'mainapp/waste.html')
 
 @login_required_message(message="Please log in, in order to view the requested page.")
