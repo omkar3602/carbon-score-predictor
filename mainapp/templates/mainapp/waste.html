@@ -89,38 +89,56 @@
         <div class="bg-white border border-green-900 rounded-lg py-8 px-10 md:w-3/4 lg:w-2/3 mx-auto mb-5">
       
           <form action="">
+            <div class="flex items-center mb-5">
+              <label for="name" class="inline-block w-30 mr-6 text-right 
+                                       font-bold text-black">Engine Type</label>
+              <select type="text" id="name" name="engine_type" placeholder="Name" 
+                     class="flex-1 py-2 border-b-2 border-gray-400 focus:border-green-400 
+                            text-gray-600 placeholder-gray-400
+                            outline-none">
+                <option value="Inline_4">Inline 4</option>
+                <option value="v6">v6</option>
+                <option value="v8">v8</option>
+            </select>
+            </div>
+      
             <div class="flex items-center mb-10">
-                <label for="plant_species" class="inline-block w-22 mr-6 text-right
-                                            font-bold text-black">Plant Species</label>
-                <input type="text" id="plant_species" name="plant_species" placeholder="Plant Species" 
-                       class="flex-1 py-2 border-b-2 border-gray-400
-                              text-gray-600
-                              placeholder-gray-400">  <!-- check other class spec upper section -->
+              <label for="cylingders" class="inline-block w-20 mr-6 text-right
+                                          font-bold text-black">Cylinders</label>
+              <input type="text" id="cylinders" name="cylinders" placeholder="Cylinders" 
+                     class="flex-1 py-2 border-b-2 border-gray-400
+                            text-gray-600
+                            placeholder-gray-400">  <!-- check other class spec upper section -->
+            </div>
+
+            <div class="flex items-center mb-5">
+                <label for="name" class="inline-block w-20 mr-6 text-right 
+                                         font-bold text-black">Transmission</label>
+                <select type="text" id="name" name="engine_type" placeholder="Name" 
+                       class="flex-1 py-2 border-b-2 border-gray-400 focus:border-green-400 
+                              text-gray-600 placeholder-gray-400
+                              outline-none">
+                  <option value="automatic">Automatic</option>
+                  <option value="manual">manual</option>
+                  <option value="CVT">CVT</option>
+              </select>
               </div>
-              <div class="flex items-center mb-10">
-                <label for="light_intensity" class="inline-block w-22 mr-6 text-right
-                                            font-bold text-black">Light Intensity</label>
-                <input type="text" id="light_intensity" name="light_intensity" placeholder="Light Intensity" 
-                       class="flex-1 py-2 border-b-2 border-gray-400
-                              text-gray-600
-                              placeholder-gray-400">  <!-- check other class spec upper section -->
-              </div>
-              <div class="flex items-center mb-10">
-                <label for="carbon_emission" class="inline-block w-22 mr-6 text-right
-                                            font-bold text-black">Carbon Emission</label>
-                <input type="text" id="carbon_emission" name="carbon_emission" placeholder="Carbon Emission" 
-                       class="flex-1 py-2 border-b-2 border-gray-400
-                              text-gray-600
-                              placeholder-gray-400">  <!-- check other class spec upper section -->
-              </div>
-              <div class="flex items-center mb-10">
-                <label for="temperature" class="inline-block w-22 mr-6 text-right
-                                            font-bold text-black">Temperature</label>
-                <input type="text" id="temperature" name="temperature" placeholder="Temperature" 
-                       class="flex-1 py-2 border-b-2 border-gray-400
-                              text-gray-600
-                              placeholder-gray-400">  <!-- check other class spec upper section -->
-              </div>
+
+            <div class="flex items-center mb-5">
+                <label for="fuel_type" class="inline-block w-20 mr-6 text-right 
+                                         font-bold text-black">Fuel Type</label>
+                <select type="text" id="name" name="transmission" placeholder="Transmission" 
+                       class="flex-1 py-2 border-b-2 border-gray-400 focus:border-green-400 
+                              text-gray-600 placeholder-gray-400
+                              outline-none">
+                  <option value="diesel">Diesel</option>
+                  <option value="petrol">Petrol</option>
+                  <option value="hybrid">Hybrid</option>
+                  <option value="electric">Electric</option>
+
+              </select>
+              </div>              
+      
             <div class="text-center">
               <button class="py-3 px-8 bg-green-900 text-white font-bold">Submit</button> 
             </div>

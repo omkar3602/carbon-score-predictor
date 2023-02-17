@@ -23,3 +23,24 @@ def carbon_footprint(request):
     if request.user.is_admin:
             return redirect('adminuser')
     return render(request, 'mainapp/get_carbon_footprint.html')
+
+@login_required_message(message="Please log in, in order to view the requested page.")
+@login_required
+def homeappliances(request):
+    if request.user.is_admin:
+            return redirect('adminuser')
+    return render(request, 'mainapp/home_appliances.html')
+
+@login_required_message(message="Please log in, in order to view the requested page.")
+@login_required
+def vehicles(request):
+    if request.user.is_admin:
+            return redirect('adminuser')
+    return render(request, 'mainapp/vehicles.html')
+
+@login_required_message(message="Please log in, in order to view the requested page.")
+@login_required
+def waste(request):
+    if request.user.is_admin:
+            return redirect('adminuser')
+    return render(request, 'mainapp/waste.html')

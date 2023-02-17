@@ -90,37 +90,34 @@
       
           <form action="">
             <div class="flex items-center mb-10">
-                <label for="plant_species" class="inline-block w-22 mr-6 text-right
-                                            font-bold text-black">Plant Species</label>
-                <input type="text" id="plant_species" name="plant_species" placeholder="Plant Species" 
+                <label for="electricity_units" class="inline-block w-22 mr-6 text-right
+                                            font-bold text-black">Electricity Units</label>
+                <input type="text" id="electricity_units" name="electricity_units" placeholder="Electricity Units" 
                        class="flex-1 py-2 border-b-2 border-gray-400
                               text-gray-600
                               placeholder-gray-400">  <!-- check other class spec upper section -->
               </div>
               <div class="flex items-center mb-10">
-                <label for="light_intensity" class="inline-block w-22 mr-6 text-right
-                                            font-bold text-black">Light Intensity</label>
-                <input type="text" id="light_intensity" name="light_intensity" placeholder="Light Intensity" 
+                <label for="age" class="inline-block w-20 mr-6 text-right
+                                            font-bold text-black">Age</label>
+                <input type="text" id="age" name="age" placeholder="Age" 
                        class="flex-1 py-2 border-b-2 border-gray-400
                               text-gray-600
                               placeholder-gray-400">  <!-- check other class spec upper section -->
               </div>
-              <div class="flex items-center mb-10">
-                <label for="carbon_emission" class="inline-block w-22 mr-6 text-right
-                                            font-bold text-black">Carbon Emission</label>
-                <input type="text" id="carbon_emission" name="carbon_emission" placeholder="Carbon Emission" 
-                       class="flex-1 py-2 border-b-2 border-gray-400
-                              text-gray-600
-                              placeholder-gray-400">  <!-- check other class spec upper section -->
-              </div>
-              <div class="flex items-center mb-10">
-                <label for="temperature" class="inline-block w-22 mr-6 text-right
-                                            font-bold text-black">Temperature</label>
-                <input type="text" id="temperature" name="temperature" placeholder="Temperature" 
-                       class="flex-1 py-2 border-b-2 border-gray-400
-                              text-gray-600
-                              placeholder-gray-400">  <!-- check other class spec upper section -->
-              </div>
+            <div class="flex items-center mb-5">
+              <label for="name" class="inline-block w-30 mr-6 text-right 
+                                       font-bold text-black">Maintenance</label>
+              <select type="text" id="name" name="maintenance" placeholder="Maintenance" 
+                     class="flex-1 py-2 border-b-2 border-gray-400 focus:border-green-400 
+                            text-gray-600 placeholder-gray-400
+                            outline-none">            
+                <option value="regular">Regular</option>
+                <option value="irregular">Irregular</option>
+            </select>
+            </div>
+                                       
+      
             <div class="text-center">
               <button class="py-3 px-8 bg-green-900 text-white font-bold">Submit</button> 
             </div>
