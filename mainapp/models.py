@@ -53,3 +53,13 @@ class Waste_Management(models.Model):
     CO2_emissions = models.DecimalField(max_digits=5, decimal_places=2)
     def __str__(self):
         return self.user.fullname + self.submitted_on.strftime(f" - [%d %B %Y]")
+    
+
+class Carbon_Score(models.Model):
+    carbon_score    = models.DecimalField(default=0, max_digits=5, decimal_places=2)
+
+    submitted_on = models.DateTimeField(default=timezone.now)
+    user = models.ForeignKey(Account, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user.fullname + self.submitted_on.strftime(f" - [%d %B %Y]")

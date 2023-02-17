@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib import messages
 from utils.decorator import login_required_message
 from .models import Oxygen_Emission, HomeAppliance_CO2_Emission, Vehicle_CO2_Emission, Waste_Management
 from userauth.models import Account
 from utils.ml_helpers import predictOxygenEmission, predictHomeApplianceCarbonDioxide, predictVehicleCarbonDioxide, predictWasteManagementCO2Emission
+from utils.score_generator import get_carbon_score
 
 
 # Create your views here.
@@ -18,18 +18,10 @@ def index(request):
         vehicle_co2_val = Vehicle_CO2_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions  
         waste_management_co2_val = Waste_Management.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions
         
-        mean_co2_emission = (home_appliance_co2_val+vehicle_co2_val+waste_management_co2_val)/3
-        
-        net_carbon_emission = mean_co2_emission - oxygen_val
-        
-        request.user.carbon_score = net_carbon_emission
-        request.user.save()
-
 
         carbon_score_array = [float(home_appliance_co2_val), float(vehicle_co2_val), float(waste_management_co2_val)]
 
         context = {
-            'net_carbon_emission': round(net_carbon_emission, 3),
             'carbon_score_array':carbon_score_array,
         }
         return render(request, 'mainapp/home.html', context)
@@ -52,6 +44,14 @@ def oxygen_emission(request):
 
         oxygen_model = Oxygen_Emission(plant_species=plant_species, light_intensity=light_intensity, carbon_emission=carbon_emission, temperature=temperature, user=request.user, oxygen_emission=ans)
         oxygen_model.save()
+
+        oxygen_val = Oxygen_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].oxygen_emission   
+        home_appliance_co2_val = HomeAppliance_CO2_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions   
+        vehicle_co2_val = Vehicle_CO2_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions  
+        waste_management_co2_val = Waste_Management.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions
+        user = request.user
+
+        get_carbon_score(oxygen_val, home_appliance_co2_val, vehicle_co2_val, waste_management_co2_val, user)
         
         context = {
             'ans': round(ans, 3),

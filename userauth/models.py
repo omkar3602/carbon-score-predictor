@@ -31,7 +31,6 @@ class MyAccountManager(BaseUserManager):
 class Account(AbstractBaseUser):
     email           = models.EmailField(max_length=50, unique =True)
     fullname        = models.CharField(max_length=20)
-    carbon_score    = models.DecimalField(default=0, max_digits=5, decimal_places=2)
     is_admin        = models.BooleanField(default=False)
     is_active       = models.BooleanField(default=True)
     is_staff        = models.BooleanField(default=False)
