@@ -88,7 +88,8 @@
               </div>
         <div class="bg-white border border-green-900 rounded-lg py-8 px-10 md:w-3/4 lg:w-2/3 mx-auto mb-5">
       
-          <form action="">
+          <form method="POST">
+            {% csrf_token %}
             <div class="flex items-center mb-5">
               <label for="name" class="inline-block w-30 mr-6 text-right 
                                        font-bold text-black">Engine Type</label>

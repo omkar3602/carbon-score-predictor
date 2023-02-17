@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from utils.decorator import login_required_message
 from .models import Oxygen_Emission
-from utils.ml_helpers import predictOxygenEmission
+from utils.ml_helpers import predictOxygenEmission, predictHomeApplianceCarbonDioxide, predictVehicleCarbonDioxide
 
 # Create your views here.
 def index(request):
@@ -40,7 +40,16 @@ def oxygen_emission(request):
 def homeappliances(request):
     if request.user.is_admin:
             return redirect('adminuser')
-    return render(request, 'mainapp/home_appliances.html')
+    if request.method == "POST":
+        data = request.POST
+
+        electricity_units = data['electricity_units']
+        age = data['age']
+        maintenance = data['maintenance']
+
+        # ans = predictHomeApplianceCarbonDioxide(electricity_units, age, maintenance, appliance_type)
+        return redirect('homeappliances')
+    return render(request, 'mainapp/homeappliances.html')
 
 @login_required_message(message="Please log in, in order to view the requested page.")
 @login_required

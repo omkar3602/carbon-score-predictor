@@ -26,7 +26,7 @@ def predictHomeApplianceCarbonDioxide(electricity, age, maintenance, appliance_t
 
 # Predict function for vehicle carbon emission 
 
-def vehicleCarbonDioxide(engine_type, cylinders, transmission, fuel_type):
+def predictVehicleCarbonDioxide(engine_type, cylinders, transmission, fuel_type):
     with open('utils/Pickle_Files/engine_type.pickle', 'rb') as handle:
         b1 = pickle.load(handle)
     with open('utils/Pickle_Files/transmission.pickle', 'rb') as handle:
