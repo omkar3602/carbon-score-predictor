@@ -9,7 +9,8 @@
         <div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
             <div class="bg-white px-6 py-8 rounded shadow-md text-black w-full">
                 <div class="flex justify-center flex-row pb-5">
-                    <a href="{% url 'home' %}" class="inline font-bold text-3xl"><svg fill="#000000" height="80px" width="80px" version="1.1" id="Capa_1" class="inline" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 489.978 489.978" xml:space="preserve">
+                    <a href="{% url 'home' %}" class="inline font-bold text-3xl">
+    {% comment %} <svg fill="#000000" height="80px" width="80px" version="1.1" id="Capa_1" class="inline" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 489.978 489.978" xml:space="preserve">
         <g>
             <g>
                 <g>
@@ -24,7 +25,9 @@
                 </g>
             </g>
         </g>
-    </svg>Carbon Score 
+    </svg> {% endcomment %}
+    <img src="{% static 'images/carbon_dp.jpg' %}" class="inline" height="80px" width="80px">
+    Carbon Score 
                 </a>
             </div>
                 {% comment %} <h1 class="mt-6 mb-3 text-3xl font-bold text-center font-nunito">Choose your role</h1> {% endcomment %}
