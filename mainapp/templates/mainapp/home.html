@@ -45,5 +45,110 @@
     
   </div>
  
+  <div class="text-center " style="background-color:rgb(137,189,43);background:linear-gradient(0deg, rgb(186,215,139) 0%, white 100%);">
+    <h1 class="font-bold text-5xl pt-32">KNOW YOUR CARBON BREAKDOWN</h1>
+  <div class="pl-10 pb-14 flex relative justify-between h-[600px] overflow-hidden smooth-scroll flex flex-row gap-4 mx-28" >
+    <div class="p-6 flex flex-col justify-center items-center text-center">
+     <h2 class="font-semibold text-2xl text-black-200 font-roboto">Climate change is here now. We can limit further warming and the dangers it poses—if we act now. 
+      Every fraction of a degree matters.</h2>
+    </div>
+    
+  
+      <div class="flex flex-1 h-56 md:h-auto object-cover w-1/2 m-5 mx-20 flex justify-center items-center " style="position: relative; height:70vh; width:90vw">
+        <canvas class="p-10 " id="chartDoughnut1"></canvas>
+      </div>   
+  
+  </div>
+  </div>
+   
+
+
+
+
+  <script>
+    // const labelsBarChart = [
+    //   "Home Appliances",
+    //   "Vehicles",
+    //   "Waste",
+    
+    // ];
+    // const dataBarChart = {
+    //   labels: labelsBarChart,
+    //   datasets: [
+    //     {
+    //       label: "Carbon score",
+    //       backgroundColor: "	hsl(0, 100%, 100%)",
+    //       borderColor: "hsl(147, 70%, 37%)",
+    //       data: [15, 10, 5],
+    //       borderWidth:1,
+    //     },
+    //   ],
+    // };
+
+    // const configBarChart = {
+    //   type: "doughnut",
+    //   data: dataBarChart,
+    //   options: {},
+    // };
+
+    // var chartBar = new Chart(
+    //   document.getElementById("chartBar"),
+    //   configBarChart
+    // );
+
+    function dynamicColors() {
+      var r = Math.floor(Math.random() * 255);
+      var g = Math.floor(Math.random() * 255);
+      var b = Math.floor(Math.random() * 255);
+      return "rgba(" + r + "," + g + "," + b + ", 0.5)";
+    }
+
+    function poolColors(a) {
+      var pool = [];
+      for (i = 0; i < a; i++) {
+        pool.push(dynamicColors());
+      }
+      return pool;
+    }
+    const dataDoughnut1 = {
+    labels: [
+      "Home Appliances",
+      "Vehicles",
+      "Waste",
+    
+    ],
+    datasets: [
+      {
+        label: "Carbon Score",
+        data: [300, 50, 100],
+      backgroundColor: [
+      'rgb(255, 99, 132)',
+      'rgb(54, 162, 235)',
+      'rgb(255, 205, 86)'
+    ],
+      hoverOffset: 4,
+     },
+    ],
+   };
+
+    const configDoughnut1 = {
+      type: "doughnut",
+      data: dataDoughnut1,
+      options: {aspectRatio: 1},
+    };
+
+    var chartBar = new Chart(
+      document.getElementById("chartDoughnut1"),
+      configDoughnut1
+    );
+
+    function updateChartType() {
+      // myChart.destroy();
+      const ic=document.getElementById("chartType");
+      const type=ic.options[ic.selectedIndex].text;
+      console.log(type);
+      chartBar.update();
+    };
+  </script>
   
  {% endblock content %}
