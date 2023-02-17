@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from utils.decorator import login_required_message
 from .models import Oxygen_Emission
 from utils.ml_helpers import predictOxygenEmission
@@ -17,16 +18,18 @@ def index(request):
 def oxygen_emission(request):
     if request.user.is_admin:
             return redirect('adminuser')
-    if request.method=="POST":
-        data=request.POST
-        plant_species=data['plant_species']
+    if request.method == "POST":
+        data = request.POST
+        plant_species = data['plant_species']
         light_intensity = data['light_intensity']
         carbon_emission = data['carbon_emission']
         temperature = data['temperature']
-        ans=predictOxygenEmission(plant_species=plant_species, light_intensity=light_intensity, carbon_emission=carbon_emission, temperature=temperature)
-        print(f'Prediction= {ans}')
-        oxygen_model=Oxygen_Emission(plant_species=plant_species, light_intensity=light_intensity, carbon_emission=carbon_emission, temperature=temperature, oxygen_emission=ans)
+        ans = predictOxygenEmission(plant_species=plant_species, light_intensity=light_intensity, carbon_emission=carbon_emission, temperature=temperature)
+
+        oxygen_model = Oxygen_Emission(plant_species=plant_species, light_intensity=light_intensity, carbon_emission=carbon_emission, temperature=temperature, user=request.user, oxygen_emission=ans)
         oxygen_model.save()
+        
+        messages.info(request, f'Prediction= {ans}')
         return redirect('oxygen_emission')
     return render(request, 'mainapp/get_oxygen_emission.html')
 
