@@ -21,13 +21,16 @@ def index(request):
         mean_co2_emission = (home_appliance_co2_val+vehicle_co2_val+waste_management_co2_val)/3
         
         net_carbon_emission = mean_co2_emission - oxygen_val
-
-        print(round(net_carbon_emission, 3))
+        
         request.user.carbon_score = net_carbon_emission
         request.user.save()
 
+
+        carbon_score_array = [float(home_appliance_co2_val), float(vehicle_co2_val), float(waste_management_co2_val)]
+
         context = {
-            'net_carbon_emission': round(net_carbon_emission, 3)
+            'net_carbon_emission': round(net_carbon_emission, 3),
+            'carbon_score_array':carbon_score_array,
         }
         return render(request, 'mainapp/home.html', context)
     return render(request, 'mainapp/index.html')
@@ -50,8 +53,11 @@ def oxygen_emission(request):
         oxygen_model = Oxygen_Emission(plant_species=plant_species, light_intensity=light_intensity, carbon_emission=carbon_emission, temperature=temperature, user=request.user, oxygen_emission=ans)
         oxygen_model.save()
         
-        messages.info(request, f'Prediction= {ans}')
-        return redirect('oxygen_emission')
+        context = {
+            'ans': round(ans, 3),
+            'has_ans': True,
+        }
+        return render(request, 'mainapp/oxygen_emission.html', context)
     return render(request, 'mainapp/oxygen_emission.html')
 
 @login_required_message(message="Please log in, in order to view the requested page.")
@@ -93,14 +99,16 @@ def vehicles(request):
         transmission = data['transmission']
         fuel_type = data['fuel_type']
 
-        print(engine_type, cylinders, transmission, fuel_type)
         ans = predictVehicleCarbonDioxide(engine_type, cylinders, transmission, fuel_type)
 
         vehicle_model = Vehicle_CO2_Emission(engine_type=engine_type, cylinders=cylinders, transmission=transmission, fuel_type=fuel_type, user=request.user, CO2_emissions=ans)
         vehicle_model.save()
-
-        messages.info(request, f'Prediction= {ans}')
-        return redirect('vehicles')
+     
+        context = {
+            'ans': round(ans, 3),
+            'has_ans': True,
+        }
+        return render(request, 'mainapp/vehicles.html', context)
 
     return render(request, 'mainapp/vehicles.html')
 
@@ -122,9 +130,11 @@ def waste(request):
         waste_model = Waste_Management(e_waste=e_waste, proper_disposal=proper_disposal, composting=composting, recycling=recycling, user=request.user, CO2_emissions=ans)
         waste_model.save()
 
-        messages.info(request, f'Prediction= {ans}')
-
-        return redirect('waste')
+        context = {
+            'ans': round(ans, 3),
+            'has_ans': True,
+        }
+        return render(request, 'mainapp/waste.html', context)
     return render(request, 'mainapp/waste.html')
 
 @login_required_message(message="Please log in, in order to view the requested page.")
