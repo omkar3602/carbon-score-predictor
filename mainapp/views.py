@@ -12,19 +12,25 @@ def index(request):
     if request.user.is_authenticated:
         if request.user.is_admin:
             return redirect('adminuser')
-        oxygen_val=Oxygen_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].oxygen_emission   
-        print(oxygen_val)
-        home_appliance_co2_val=HomeAppliance_CO2_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].oxygen_emission   
-        vehicle_co2_val=Vehicle_CO2_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].carbon_emission  
-        waste_management_co2_val=Waste_Management.objects.filter(user=request.user).order_by('-submitted_on')[0].carbon_emission
+
+        oxygen_val = Oxygen_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].oxygen_emission   
+        home_appliance_co2_val = HomeAppliance_CO2_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions   
+        vehicle_co2_val = Vehicle_CO2_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions  
+        waste_management_co2_val = Waste_Management.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions
         
-        mean_co2_emission=(home_appliance_co2_val+vehicle_co2_val+waste_management_co2_val)/3
+        mean_co2_emission = (home_appliance_co2_val+vehicle_co2_val+waste_management_co2_val)/3
         
-        net_carbon_emission=mean_co2_emission-oxygen_val
-        request.user.carbon_score=net_carbon_emission
-        context={'real_carbon_emission_val':net_carbon_emission}
-        return render(request, 'mainapp/home.html')
-    return render(request, 'mainapp/index.html', context=context)
+        net_carbon_emission = mean_co2_emission - oxygen_val
+
+        print(round(net_carbon_emission, 3))
+        request.user.carbon_score = net_carbon_emission
+        request.user.save()
+
+        context = {
+            'net_carbon_emission': round(net_carbon_emission, 3)
+        }
+        return render(request, 'mainapp/home.html', context)
+    return render(request, 'mainapp/index.html')
 
 @login_required_message(message="Please log in, in order to view the requested page.")
 @login_required
