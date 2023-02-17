@@ -6,13 +6,25 @@ from .models import Oxygen_Emission, HomeAppliance_CO2_Emission, Vehicle_CO2_Emi
 from userauth.models import Account
 from utils.ml_helpers import predictOxygenEmission, predictHomeApplianceCarbonDioxide, predictVehicleCarbonDioxide, predictWasteManagementCO2Emission
 
+
 # Create your views here.
 def index(request):
     if request.user.is_authenticated:
         if request.user.is_admin:
             return redirect('adminuser')
+        oxygen_val=Oxygen_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].oxygen_emission   
+        print(oxygen_val)
+        home_appliance_co2_val=HomeAppliance_CO2_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].oxygen_emission   
+        vehicle_co2_val=Vehicle_CO2_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].carbon_emission  
+        waste_management_co2_val=Waste_Management.objects.filter(user=request.user).order_by('-submitted_on')[0].carbon_emission
+        
+        mean_co2_emission=(home_appliance_co2_val+vehicle_co2_val+waste_management_co2_val)/3
+        
+        net_carbon_emission=mean_co2_emission-oxygen_val
+        request.user.carbon_score=net_carbon_emission
+        context={'real_carbon_emission_val':net_carbon_emission}
         return render(request, 'mainapp/home.html')
-    return render(request, 'mainapp/index.html')
+    return render(request, 'mainapp/index.html', context=context)
 
 @login_required_message(message="Please log in, in order to view the requested page.")
 @login_required
@@ -109,8 +121,7 @@ def waste(request):
 @login_required
 def leaderboard(request):
     if request.user.is_admin:
-            return redirect('adminuser')
-
+        return redirect('adminuser')
     users = Account.objects.filter(is_admin=False).order_by('carbon_score')
     
     context = {
