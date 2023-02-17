@@ -21,13 +21,16 @@ def index(request):
         mean_co2_emission = (home_appliance_co2_val+vehicle_co2_val+waste_management_co2_val)/3
         
         net_carbon_emission = mean_co2_emission - oxygen_val
-
-        print(round(net_carbon_emission, 3))
+        
         request.user.carbon_score = net_carbon_emission
         request.user.save()
 
+
+        carbon_score_array = [float(home_appliance_co2_val), float(vehicle_co2_val), float(waste_management_co2_val)]
+
         context = {
-            'net_carbon_emission': round(net_carbon_emission, 3)
+            'net_carbon_emission': round(net_carbon_emission, 3),
+            'carbon_score_array':carbon_score_array,
         }
         return render(request, 'mainapp/home.html', context)
     return render(request, 'mainapp/index.html')
@@ -93,7 +96,6 @@ def vehicles(request):
         transmission = data['transmission']
         fuel_type = data['fuel_type']
 
-        print(engine_type, cylinders, transmission, fuel_type)
         ans = predictVehicleCarbonDioxide(engine_type, cylinders, transmission, fuel_type)
 
         vehicle_model = Vehicle_CO2_Emission(engine_type=engine_type, cylinders=cylinders, transmission=transmission, fuel_type=fuel_type, user=request.user, CO2_emissions=ans)
