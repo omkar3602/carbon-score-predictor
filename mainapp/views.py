@@ -5,7 +5,6 @@ from .models import Oxygen_Emission, HomeAppliance_CO2_Emission, Vehicle_CO2_Emi
 from userauth.models import Account
 from utils.ml_helpers import predictOxygenEmission, predictHomeApplianceCarbonDioxide, predictVehicleCarbonDioxide, predictWasteManagementCO2Emission
 from utils.score_generator import get_carbon_score
-from django.utils import timezone
 from django.contrib import messages
 
 
@@ -85,10 +84,25 @@ def oxygen_emission(request):
             oxygen_model = Oxygen_Emission(plant_species=plant_species, light_intensity=light_intensity, carbon_emission=carbon_emission, temperature=temperature, user=request.user, oxygen_emission=ans)
             oxygen_model.save()
 
-            oxygen_val = Oxygen_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].oxygen_emission   
-            home_appliance_co2_val = HomeAppliance_CO2_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions   
-            vehicle_co2_val = Vehicle_CO2_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions  
-            waste_management_co2_val = Waste_Management.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions
+            if len(Carbon_Score.objects.filter(user=request.user)):
+                oxygen_val = Oxygen_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].oxygen_emission
+            else:
+                oxygen_val = 0
+            
+            if len(HomeAppliance_CO2_Emission.objects.filter(user=request.user)):
+                home_appliance_co2_val = HomeAppliance_CO2_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions
+            else:
+                home_appliance_co2_val = 0
+            
+            if len(Vehicle_CO2_Emission.objects.filter(user=request.user)) > 0:
+                vehicle_co2_val = Vehicle_CO2_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions
+            else:
+                vehicle_co2_val = 0
+            
+            if len(Waste_Management.objects.filter(user=request.user)) > 0:
+                waste_management_co2_val = Waste_Management.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions
+            else:
+                waste_management_co2_val = 0
             user = request.user
 
             get_carbon_score(oxygen_val, home_appliance_co2_val, vehicle_co2_val, waste_management_co2_val, user)
@@ -211,6 +225,5 @@ def leaderboard(request):
 
     context = {
         'users':users,
-        # 'max_carbon_score':max_carbon_score,
     }
     return render(request, 'mainapp/leaderboard.html', context)
