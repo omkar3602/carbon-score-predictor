@@ -41,11 +41,11 @@
                   {% endif %}
                 </td>
                 <td class="text-xl font-semibold text-gray-900 px-6 py-4">
-                  {% comment %} {% if user.carbon_score == 10000 %}
-                    -
-                  {% else %} {% endcomment %}
+                  {% if user.show %}
                     {{ user.carbon_score }}
-                  {% comment %} {% endif %} {% endcomment %}
+                  {% else %}
+                    -
+                  {% endif %}
                 </td>            
               </tr> 
                   {% else %}                    
@@ -61,7 +61,11 @@
                   {% endif %}
                 </td>
                 <td class="text-lg text-gray-900 font-normal px-6 py-4">
-                  {{ user.carbon_score }}
+                  {% if user.show %}
+                    {{ user.carbon_score }}
+                  {% else %}
+                    -
+                  {% endif %}
                 </td>            
               </tr>                
               {% endif %}

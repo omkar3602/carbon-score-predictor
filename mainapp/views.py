@@ -200,11 +200,14 @@ def leaderboard(request):
     for user in users:
         if len(Carbon_Score.objects.filter(user=user['id'])) > 0:
             carbon_score_obj = Carbon_Score.objects.filter(user=user['id']).order_by('-submitted_on')[0]
-            carbon_score = int(carbon_score_obj.carbon_score)
+            carbon_score = float(carbon_score_obj.carbon_score)
+            user['show'] = True
             user['carbon_score'] = carbon_score
         else:
-            users.remove(user)
-            # user['carbon_score'] = max_carbon_score
+            user['show'] = False
+            user['carbon_score'] = max_carbon_score
+
+    users = sorted(users, key=lambda x: x['carbon_score'])
 
     context = {
         'users':users,
