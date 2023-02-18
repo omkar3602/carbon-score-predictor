@@ -84,10 +84,10 @@ def oxygen_emission(request):
             oxygen_model = Oxygen_Emission(plant_species=plant_species, light_intensity=light_intensity, carbon_emission=carbon_emission, temperature=temperature, user=request.user, oxygen_emission=ans)
             oxygen_model.save()
 
-            if len(Carbon_Score.objects.filter(user=request.user)):
-                oxygen_val = Oxygen_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].oxygen_emission
-            else:
-                oxygen_val = 0
+            # if len(Carbon_Score.objects.filter(user=request.user)):
+            #     oxygen_val = Oxygen_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].oxygen_emission
+            # else:
+            #     oxygen_val = 0
             
             if len(HomeAppliance_CO2_Emission.objects.filter(user=request.user)):
                 home_appliance_co2_val = HomeAppliance_CO2_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions
@@ -105,7 +105,7 @@ def oxygen_emission(request):
                 waste_management_co2_val = 0
             user = request.user
 
-            get_carbon_score(oxygen_val, home_appliance_co2_val, vehicle_co2_val, waste_management_co2_val, user)
+            get_carbon_score(ans, home_appliance_co2_val, vehicle_co2_val, waste_management_co2_val, user)
             
             context = {
                 'ans': round(ans, 3),
