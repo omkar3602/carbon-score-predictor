@@ -26,21 +26,26 @@
               </tr>
             </thead>
             {% for user in users %}
+            
             <tbody>
-              {% if request.user == user %}
+              {% if request.user.id == user.id %}
               <tr class="bg-white border border-2 border-green-900 text-white transition duration-300 ease-in-out hover:bg-gray-100">
                 <td class="px-6 py-4 text-xl font-semibold text-gray-900 cursor-pointer">
                   {{ forloop.counter }}
                 </td>
                 <td class="text-xl font-semibold text-gray-900 px-6 py-4">
-                  {% if request.user == user %}
+                  {% if request.user.id == user.id %}
                     You
                   {% else %}
                     {{ user.fullname }}
                   {% endif %}
                 </td>
                 <td class="text-xl font-semibold text-gray-900 px-6 py-4">
-                  {{ user.carbon_score }}
+                  {% comment %} {% if user.carbon_score == 10000 %}
+                    -
+                  {% else %} {% endcomment %}
+                    {{ user.carbon_score }}
+                  {% comment %} {% endif %} {% endcomment %}
                 </td>            
               </tr> 
                   {% else %}                    
