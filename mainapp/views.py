@@ -5,7 +5,6 @@ from .models import Oxygen_Emission, HomeAppliance_CO2_Emission, Vehicle_CO2_Emi
 from userauth.models import Account
 from utils.ml_helpers import predictOxygenEmission, predictHomeApplianceCarbonDioxide, predictVehicleCarbonDioxide, predictWasteManagementCO2Emission
 from utils.score_generator import get_carbon_score
-from django.utils import timezone
 from django.contrib import messages
 
 
@@ -31,24 +30,34 @@ def index(request):
 
         if len(HomeAppliance_CO2_Emission.objects.filter(user=request.user)) > 0:
             home_appliance_co2_val = HomeAppliance_CO2_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions
+            home_appliance_co2_val = float(home_appliance_co2_val)
         else:
             home_appliance_co2_val = False
         if len(Vehicle_CO2_Emission.objects.filter(user=request.user)) > 0:
             vehicle_co2_val = Vehicle_CO2_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions
+            vehicle_co2_val = float(vehicle_co2_val)
         else:
             vehicle_co2_val = False
         if len(Waste_Management.objects.filter(user=request.user)) > 0:
             waste_management_co2_val = Waste_Management.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions
+            waste_management_co2_val = float(waste_management_co2_val)
         else:
             waste_management_co2_val = False
-        carbon_score_array = [float(home_appliance_co2_val), float(vehicle_co2_val), float(waste_management_co2_val)]
+        
+        carbon_score_array = [home_appliance_co2_val, vehicle_co2_val, waste_management_co2_val]
 
         if len(carbon_scores) > 0:
             show_line_chart = True
         else:
             show_line_chart = False
         
-        if carbon_score_array[0] != False and carbon_score_array[1] != False and carbon_score_array[2] != False:
+        if carbon_score_array[0] != False or carbon_score_array[1] != False or carbon_score_array[2] != False:
+            if carbon_score_array[0] == False:
+                carbon_score_array[0] = 0
+            if carbon_score_array[1] == False:
+                carbon_score_array[1] = 0
+            if carbon_score_array[2] == False:
+                carbon_score_array[2] = 0
             show_pie_chart = True
         else:
             show_pie_chart = False
@@ -85,13 +94,28 @@ def oxygen_emission(request):
             oxygen_model = Oxygen_Emission(plant_species=plant_species, light_intensity=light_intensity, carbon_emission=carbon_emission, temperature=temperature, user=request.user, oxygen_emission=ans)
             oxygen_model.save()
 
-            oxygen_val = Oxygen_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].oxygen_emission   
-            home_appliance_co2_val = HomeAppliance_CO2_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions   
-            vehicle_co2_val = Vehicle_CO2_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions  
-            waste_management_co2_val = Waste_Management.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions
+            # if len(Carbon_Score.objects.filter(user=request.user)):
+            #     oxygen_val = Oxygen_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].oxygen_emission
+            # else:
+            #     oxygen_val = 0
+            
+            if len(HomeAppliance_CO2_Emission.objects.filter(user=request.user)):
+                home_appliance_co2_val = HomeAppliance_CO2_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions
+            else:
+                home_appliance_co2_val = 0
+            
+            if len(Vehicle_CO2_Emission.objects.filter(user=request.user)) > 0:
+                vehicle_co2_val = Vehicle_CO2_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions
+            else:
+                vehicle_co2_val = 0
+            
+            if len(Waste_Management.objects.filter(user=request.user)) > 0:
+                waste_management_co2_val = Waste_Management.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions
+            else:
+                waste_management_co2_val = 0
             user = request.user
 
-            get_carbon_score(oxygen_val, home_appliance_co2_val, vehicle_co2_val, waste_management_co2_val, user)
+            get_carbon_score(ans, home_appliance_co2_val, vehicle_co2_val, waste_management_co2_val, user)
             
             context = {
                 'ans': round(ans, 3),
@@ -196,13 +220,19 @@ def leaderboard(request):
         return redirect('adminuser')
     users = Account.objects.filter(is_admin=False).values('fullname', 'id')
     users = list(users)
+    max_carbon_score = 10000
     for user in users:
         if len(Carbon_Score.objects.filter(user=user['id'])) > 0:
             carbon_score_obj = Carbon_Score.objects.filter(user=user['id']).order_by('-submitted_on')[0]
-            carbon_score = carbon_score_obj.carbon_score
+            carbon_score = float(carbon_score_obj.carbon_score)
+            user['show'] = True
             user['carbon_score'] = carbon_score
         else:
-            user['carbon_score'] = "-"
+            user['show'] = False
+            user['carbon_score'] = max_carbon_score
+
+    users = sorted(users, key=lambda x: x['carbon_score'])
+
     context = {
         'users':users,
     }
