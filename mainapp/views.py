@@ -30,24 +30,34 @@ def index(request):
 
         if len(HomeAppliance_CO2_Emission.objects.filter(user=request.user)) > 0:
             home_appliance_co2_val = HomeAppliance_CO2_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions
+            home_appliance_co2_val = float(home_appliance_co2_val)
         else:
             home_appliance_co2_val = False
         if len(Vehicle_CO2_Emission.objects.filter(user=request.user)) > 0:
             vehicle_co2_val = Vehicle_CO2_Emission.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions
+            vehicle_co2_val = float(vehicle_co2_val)
         else:
             vehicle_co2_val = False
         if len(Waste_Management.objects.filter(user=request.user)) > 0:
             waste_management_co2_val = Waste_Management.objects.filter(user=request.user).order_by('-submitted_on')[0].CO2_emissions
+            waste_management_co2_val = float(waste_management_co2_val)
         else:
             waste_management_co2_val = False
-        carbon_score_array = [float(home_appliance_co2_val), float(vehicle_co2_val), float(waste_management_co2_val)]
+        
+        carbon_score_array = [home_appliance_co2_val, vehicle_co2_val, waste_management_co2_val]
 
         if len(carbon_scores) > 0:
             show_line_chart = True
         else:
             show_line_chart = False
         
-        if carbon_score_array[0] != False and carbon_score_array[1] != False and carbon_score_array[2] != False:
+        if carbon_score_array[0] != False or carbon_score_array[1] != False or carbon_score_array[2] != False:
+            if carbon_score_array[0] == False:
+                carbon_score_array[0] = 0
+            if carbon_score_array[1] == False:
+                carbon_score_array[1] = 0
+            if carbon_score_array[2] == False:
+                carbon_score_array[2] = 0
             show_pie_chart = True
         else:
             show_pie_chart = False
