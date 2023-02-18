@@ -5,16 +5,16 @@
 
 {% block content %}
 
-  <div class="pl-10 pb-16 flex relative justify-between h-[600px] overflow-hidden smooth-scroll" style="background-color:rgb(137,189,43);background:linear-gradient(0deg, rgb(186,215,139) 0%, white 100%);">
+  <div class="pl-10 pb-16 sm:flex relative sm:justify-between h-[600px] overflow-hidden smooth-scroll" style="background-color:rgb(137,189,43);background:linear-gradient(0deg, rgb(186,215,139) 0%, white 100%);">
     <div class="w-1/2">
-      <h1 class="text-left text-black text-8xl font-bold pt-[200px] drop-shadow-lg">Conserve <span class="text-green-900">Our Nature</span>
+      <h1 class="text-left text-black text-6xl sm:text-8xl font-bold pt-[200px] drop-shadow-lg">Conserve <span class="text-green-900">Our Nature</span>
       </h1>
       <h1 class="text-left text-gray-700 font-normal text-2xl pt-2 pb-10 ">Cut Carbon and care for the planet</h1>
       
     </div>    
     <img
       src="{% static 'images/banner_img.png' %}"
-      class="float-right h-3/4 absolute top-[120px] right-[-150px]"
+      class="invisible sm:visible float-right h-3/4 absolute top-[120px] right-[-150px]"
       alt="Idea"
       />    
   </div>
@@ -22,14 +22,14 @@
     {% comment %} <img src="{% static 'images/bg-img.jpg' %}" class="object-cover w-full " alt=""> {% endcomment %}
   </div>
  
-  <div id="carbon_score" class="mt-12">
+  <div id="carbon_score" class="mt-8 sm:mt-12">
     <!-- <h3 class="py-4  text-center text-green-700 text-4xl font-bold pt-16 drop-shadow-lg  hover:underline-offset-8">
       Calculate your Carbon score</h3> -->
      
-      <div class="flex flex-row gap-4 p-16 mx-28">
+      <div class="flex flex-col justify-center sm:flex-row gap-4 sm:p-16 sm:mx-28">
        
-          <img class="flex-1 h-56 md:h-auto object-cover w-1/2 py-8" src="{% static 'images/carbon_score.jpeg' %}" alt="" />
-         <div class=" flex-2">
+          <img class="sm:flex-1 h-56 md:h-auto object-cover px-3 py-8" src="{% static 'images/carbon_score.jpeg' %}" alt="" />
+         <div class=" sm:flex-2">
           <div class=" p-6 flex flex-col justify-center items-center text-center">
             <h5 class="text-gray-900 text-3xl font-bold font-medium mb-2">CALCULATE YOUR CARBON SCORE</h5>
            <br><br>
@@ -50,9 +50,9 @@
     
   </div>
  
-  <h1 class="font-bold text-5xl pt-16 px-36">Steps To Reduce Your Carbon Footprints</h1>
-<h3 class="font-normal text-xl pt-8 px-36">The next several years will be critical in our fight against climate change, and our capacity to reduce our carbon footprint will undoubtedly determine our success.</h3>
-<div class="w-full pt-8 px-36 bg-white mb-14">
+  <h1 class="font-bold text-3xl sm:text-5xl pt-16 sm:px-36 px-8">Steps To Reduce Your Carbon Footprints</h1>
+<h3 class="font-normal text-lg sm:text-xl pt-8 sm:px-36 px-6">The next several years will be critical in our fight against climate change, and our capacity to reduce our carbon footprint will undoubtedly determine our success.</h3>
+<div class="w-full pt-8 sm:px-36 px-6 bg-white mb-14">
  <div class="flow-root">
       <ul role="list" class="divide-y divide-gray-200 ">
           <li class="py-3 sm:py-4">
