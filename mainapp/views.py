@@ -196,14 +196,18 @@ def leaderboard(request):
         return redirect('adminuser')
     users = Account.objects.filter(is_admin=False).values('fullname', 'id')
     users = list(users)
+    max_carbon_score = 10000
     for user in users:
         if len(Carbon_Score.objects.filter(user=user['id'])) > 0:
             carbon_score_obj = Carbon_Score.objects.filter(user=user['id']).order_by('-submitted_on')[0]
-            carbon_score = carbon_score_obj.carbon_score
+            carbon_score = int(carbon_score_obj.carbon_score)
             user['carbon_score'] = carbon_score
         else:
-            user['carbon_score'] = "-"
+            users.remove(user)
+            # user['carbon_score'] = max_carbon_score
+
     context = {
         'users':users,
+        # 'max_carbon_score':max_carbon_score,
     }
     return render(request, 'mainapp/leaderboard.html', context)
